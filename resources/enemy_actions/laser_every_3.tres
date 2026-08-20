@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="LaserAction" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/classes/enemy_actions/laser_action.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+interval = 3
+damage = 2

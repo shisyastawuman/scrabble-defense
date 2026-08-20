@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="ShopOffer" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/classes/shop_offer.gd" id="1"]
+[ext_resource type="Resource" path="res://resources/letter_effects/gain_energy_on_place.tres" id="2"]
+
+[resource]
+script = ExtResource("1")
+id = "enchant_energy"
+display_name = "Spark"
+description = "Enchant a letter: +2 energy when it is placed."
+cost = 10
+kind = 1
+unique = false
+enchantment = ExtResource("2")

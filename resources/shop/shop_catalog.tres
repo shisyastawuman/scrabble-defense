@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="ShopCatalog" format=3 uid="uid://coaqyuibsocxf"]
+
+[ext_resource type="Script" uid="uid://yn4omyqb5wp" path="res://scripts/classes/shop_catalog.gd" id="1"]
+[ext_resource type="Script" uid="uid://dl8kmvmlkflpb" path="res://scripts/classes/shop_offer.gd" id="2"]
+[ext_resource type="Resource" uid="uid://bm53ye4enhwkl" path="res://resources/shop/offers/spell_discard.tres" id="3"]
+[ext_resource type="Resource" path="res://resources/shop/offers/spell_storm.tres" id="4"]
+[ext_resource type="Resource" path="res://resources/shop/offers/spell_freeze.tres" id="5"]
+[ext_resource type="Resource" path="res://resources/shop/offers/spell_reinforce.tres" id="6"]
+[ext_resource type="Resource" path="res://resources/shop/offers/enchant_energy.tres" id="7"]
+[ext_resource type="Resource" path="res://resources/shop/offers/enchant_execute.tres" id="8"]
+[ext_resource type="Resource" path="res://resources/shop/offers/enchant_bolster.tres" id="9"]
+[ext_resource type="Resource" path="res://resources/shop/offers/letter_blank.tres" id="10"]
+[ext_resource type="Resource" path="res://resources/shop/offers/letter_v.tres" id="11"]
+[ext_resource type="Resource" path="res://resources/shop/offers/letter_j.tres" id="12"]
+[ext_resource type="Resource" path="res://resources/shop/offers/letter_h.tres" id="13"]
+[ext_resource type="Resource" path="res://resources/shop/offers/letter_w.tres" id="14"]
+[ext_resource type="Resource" path="res://resources/shop/offers/upgrade_energy.tres" id="15"]
+[ext_resource type="Resource" path="res://resources/shop/offers/upgrade_vowels.tres" id="16"]
+[ext_resource type="Resource" path="res://resources/shop/offers/upgrade_consonants.tres" id="17"]
+
+[resource]
+script = ExtResource("1")
+offers = Array[ExtResource("2")]([ExtResource("3"), ExtResource("4"), ExtResource("5"), ExtResource("6"), ExtResource("7"), ExtResource("8"), ExtResource("9"), ExtResource("10"), ExtResource("11"), ExtResource("12"), ExtResource("13"), ExtResource("14"), ExtResource("15"), ExtResource("16"), ExtResource("17")])

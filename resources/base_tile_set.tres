@@ -1,0 +1,29 @@
+[gd_resource type="TileSet" format=3 uid="uid://eqa2bw2pg28i"]
+
+[ext_resource type="Texture2D" uid="uid://dsh08l2nx5ogb" path="res://assets/grass.png" id="1_7d1m3"]
+[ext_resource type="Texture2D" uid="uid://b06a2n72wj7jb" path="res://assets/building.png" id="2_b71r1"]
+[ext_resource type="Texture2D" uid="uid://5o0kck03yog3" path="res://assets/enemy_spawn.png" id="3_v1kxy"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_dvrx2"]
+resource_name = "grass"
+texture = ExtResource("1_7d1m3")
+texture_region_size = Vector2i(48, 48)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_701w1"]
+resource_name = "building"
+texture = ExtResource("2_b71r1")
+texture_region_size = Vector2i(48, 48)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_xxbs5"]
+resource_name = "enemy_spawn"
+texture = ExtResource("3_v1kxy")
+texture_region_size = Vector2i(48, 48)
+0:0/0 = 0
+
+[resource]
+tile_size = Vector2i(48, 48)
+sources/0 = SubResource("TileSetAtlasSource_dvrx2")
+sources/1 = SubResource("TileSetAtlasSource_701w1")
+sources/2 = SubResource("TileSetAtlasSource_xxbs5")

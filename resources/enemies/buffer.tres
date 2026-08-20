@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="EnemyClass" load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://scripts/classes/enemy_class.gd" id="1"]
+[ext_resource type="Script" path="res://scripts/classes/enemy_action.gd" id="2"]
+[ext_resource type="Resource" path="res://resources/enemy_actions/buff_nearby_speed.tres" id="3"]
+
+[resource]
+script = ExtResource("1")
+display_name = "Buffer"
+health = 2
+speed = 0
+damage = 0
+shape = 4
+tooltip = "Does not walk. Nearby enemies gain +1 speed each turn."
+actions = Array[ExtResource("2")]([ExtResource("3")])

@@ -1,0 +1,98 @@
+[gd_resource type="Resource" script_class="StackBlueprint" format=3 uid="uid://eppm43w0od36"]
+
+[ext_resource type="Resource" uid="uid://onlfm28x23nn" path="res://resources/letters/base/A.tres" id="LA"]
+[ext_resource type="Resource" path="res://resources/letters/base/B.tres" id="LB"]
+[ext_resource type="Resource" path="res://resources/letters/base/C.tres" id="LC"]
+[ext_resource type="Resource" path="res://resources/letters/base/D.tres" id="LD"]
+[ext_resource type="Resource" path="res://resources/letters/base/E.tres" id="LE"]
+[ext_resource type="Resource" path="res://resources/letters/base/I.tres" id="LI"]
+[ext_resource type="Resource" path="res://resources/letters/base/L.tres" id="LL"]
+[ext_resource type="Resource" path="res://resources/letters/base/M.tres" id="LM"]
+[ext_resource type="Resource" path="res://resources/letters/base/N.tres" id="LN"]
+[ext_resource type="Resource" path="res://resources/letters/base/O.tres" id="LO"]
+[ext_resource type="Resource" path="res://resources/letters/base/P.tres" id="LP"]
+[ext_resource type="Resource" uid="uid://bs3ax75m1tevo" path="res://resources/letters/base/R.tres" id="LR"]
+[ext_resource type="Resource" path="res://resources/letters/base/S.tres" id="LS"]
+[ext_resource type="Resource" path="res://resources/letters/base/T.tres" id="LT"]
+[ext_resource type="Resource" path="res://resources/letters/base/U.tres" id="LU"]
+[ext_resource type="Script" uid="uid://cjp6rn04djp2g" path="res://scripts/classes/letter_set.gd" id="set"]
+[ext_resource type="Script" uid="uid://dm776oic1eiet" path="res://scripts/classes/stack_blueprint.gd" id="stack"]
+
+[sub_resource type="Resource" id="Set_A"]
+script = ExtResource("set")
+amount = 2
+letter_blueprint = ExtResource("LA")
+
+[sub_resource type="Resource" id="Set_E"]
+script = ExtResource("set")
+amount = 2
+letter_blueprint = ExtResource("LE")
+
+[sub_resource type="Resource" id="Set_I"]
+script = ExtResource("set")
+amount = 2
+letter_blueprint = ExtResource("LI")
+
+[sub_resource type="Resource" id="Set_O"]
+script = ExtResource("set")
+amount = 2
+letter_blueprint = ExtResource("LO")
+
+[sub_resource type="Resource" id="Set_U"]
+script = ExtResource("set")
+amount = 1
+letter_blueprint = ExtResource("LU")
+
+[sub_resource type="Resource" id="Set_R"]
+script = ExtResource("set")
+amount = 1
+letter_blueprint = ExtResource("LR")
+
+[sub_resource type="Resource" id="Set_S"]
+script = ExtResource("set")
+amount = 1
+letter_blueprint = ExtResource("LS")
+
+[sub_resource type="Resource" id="Set_T"]
+script = ExtResource("set")
+amount = 1
+letter_blueprint = ExtResource("LT")
+
+[sub_resource type="Resource" id="Set_N"]
+script = ExtResource("set")
+amount = 1
+letter_blueprint = ExtResource("LN")
+
+[sub_resource type="Resource" id="Set_L"]
+script = ExtResource("set")
+amount = 1
+letter_blueprint = ExtResource("LL")
+
+[sub_resource type="Resource" id="Set_D"]
+script = ExtResource("set")
+amount = 1
+letter_blueprint = ExtResource("LD")
+
+[sub_resource type="Resource" id="Set_C"]
+script = ExtResource("set")
+amount = 1
+letter_blueprint = ExtResource("LC")
+
+[sub_resource type="Resource" id="Set_P"]
+script = ExtResource("set")
+amount = 1
+letter_blueprint = ExtResource("LP")
+
+[sub_resource type="Resource" id="Set_M"]
+script = ExtResource("set")
+amount = 1
+letter_blueprint = ExtResource("LM")
+
+[sub_resource type="Resource" id="Set_B"]
+script = ExtResource("set")
+amount = 1
+letter_blueprint = ExtResource("LB")
+
+[resource]
+script = ExtResource("stack")
+letter_sets = Array[ExtResource("set")]([SubResource("Set_A"), SubResource("Set_E"), SubResource("Set_I"), SubResource("Set_O"), SubResource("Set_U"), SubResource("Set_R"), SubResource("Set_S"), SubResource("Set_T"), SubResource("Set_N"), SubResource("Set_L"), SubResource("Set_D"), SubResource("Set_C"), SubResource("Set_P"), SubResource("Set_M"), SubResource("Set_B")])

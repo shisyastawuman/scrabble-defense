@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="ShopOffer" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/classes/shop_offer.gd" id="1"]
+[ext_resource type="Resource" path="res://resources/spells/storm.tres" id="2"]
+
+[resource]
+script = ExtResource("1")
+id = "spell_storm"
+display_name = "Storm"
+description = "Deal 1 damage to 5 random enemies."
+cost = 15
+kind = 0
+unique = true
+spell = ExtResource("2")

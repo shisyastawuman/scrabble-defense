@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="EnemyClass" load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://scripts/classes/enemy_class.gd" id="1"]
+[ext_resource type="Script" path="res://scripts/classes/enemy_effect.gd" id="2"]
+[ext_resource type="Resource" path="res://resources/enemy_effects/explode_adjacent.tres" id="3"]
+
+[resource]
+script = ExtResource("1")
+display_name = "Explosive"
+health = 1
+speed = 1
+damage = 1
+shape = 5
+tooltip = "Damages every adjacent wall when it dies."
+death_effects = Array[ExtResource("2")]([ExtResource("3")])

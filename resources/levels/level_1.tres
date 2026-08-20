@@ -1,0 +1,35 @@
+[gd_resource type="Resource" script_class="Level" format=3 uid="uid://bspcp3py1xjc6"]
+
+[ext_resource type="Resource" path="res://resources/enemies/basic.tres" id="basic"]
+[ext_resource type="Script" uid="uid://dyvlea8i6pu1k" path="res://scripts/classes/spawn_group.gd" id="group"]
+[ext_resource type="Script" uid="uid://87mvoqvd1jsi" path="res://scripts/classes/level.gd" id="level"]
+[ext_resource type="Script" uid="uid://butxpa7drc8mh" path="res://scripts/classes/map.gd" id="map"]
+[ext_resource type="Script" uid="uid://cpc2qx6o7ol3x" path="res://scripts/classes/wave.gd" id="wave"]
+
+[sub_resource type="Resource" id="MapMain"]
+script = ExtResource("map")
+cols = 9
+rows = 9
+buildings = Array[Vector2i]([Vector2i(4, 4)])
+
+[sub_resource type="Resource" id="G1"]
+script = ExtResource("group")
+enemy = ExtResource("basic")
+
+[sub_resource type="Resource" id="W1"]
+script = ExtResource("wave")
+groups = Array[ExtResource("group")]([SubResource("G1")])
+
+[sub_resource type="Resource" id="G2"]
+script = ExtResource("group")
+enemy = ExtResource("basic")
+count = 2
+
+[sub_resource type="Resource" id="W2"]
+script = ExtResource("wave")
+groups = Array[ExtResource("group")]([SubResource("G2")])
+
+[resource]
+script = ExtResource("level")
+waves = Array[ExtResource("wave")]([SubResource("W1"), SubResource("W2")])
+map = SubResource("MapMain")

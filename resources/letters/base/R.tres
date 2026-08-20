@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="LetterBlueprint" load_steps=2 format=3 uid="uid://bs3ax75m1tevo"]
+
+[ext_resource type="Script" path="res://scripts/classes/letter_blueprint.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+char = "R"
+health = 1

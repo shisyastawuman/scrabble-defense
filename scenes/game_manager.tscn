@@ -1,0 +1,244 @@
+[gd_scene format=3 uid="uid://bc6ysotluw3xf"]
+
+[ext_resource type="Script" uid="uid://m47ucyug6vmt" path="res://scripts/game_manager.gd" id="1_hwd4i"]
+[ext_resource type="Script" uid="uid://87mvoqvd1jsi" path="res://scripts/classes/level.gd" id="2_oo155"]
+[ext_resource type="Resource" uid="uid://bspcp3py1xjc6" path="res://resources/levels/level_1.tres" id="3_lvl1"]
+[ext_resource type="Resource" uid="uid://b6amwtt03v8hw" path="res://resources/levels/level_2.tres" id="3_lvl2"]
+[ext_resource type="Resource" uid="uid://m7jjt3jtp1ah" path="res://resources/levels/level_3.tres" id="3_lvl3"]
+[ext_resource type="TileSet" uid="uid://eqa2bw2pg28i" path="res://resources/base_tile_set.tres" id="4_eaq8r"]
+[ext_resource type="Resource" uid="uid://dvuji4sr6yf36" path="res://resources/player_test.tres" id="4_q8mjp"]
+[ext_resource type="Script" uid="uid://s8c075opcu5p" path="res://scripts/classes/grid.gd" id="4_ternb"]
+[ext_resource type="Script" uid="uid://c4cyxieex8s80" path="res://scripts/player_manager.gd" id="6_ternb"]
+[ext_resource type="Script" uid="uid://drl52hihmtt3x" path="res://scripts/board.gd" id="7_board"]
+[ext_resource type="Script" uid="uid://bwwcbqx5vptth" path="res://scripts/enemy_manager.gd" id="8_enemy"]
+[ext_resource type="Script" uid="uid://bgcc351l0vl7f" path="res://scripts/hud.gd" id="9_hud"]
+[ext_resource type="Script" uid="uid://7w5a8rggqsoi" path="res://scripts/vfx_layer.gd" id="10_vfx"]
+[ext_resource type="Resource" uid="uid://coaqyuibsocxf" path="res://resources/shop/shop_catalog.tres" id="12_catalog"]
+
+[node name="GameManager" type="Node" unique_id=1720755617]
+script = ExtResource("1_hwd4i")
+levels = Array[ExtResource("2_oo155")]([ExtResource("3_lvl1"), ExtResource("3_lvl2"), ExtResource("3_lvl3")])
+player = ExtResource("4_q8mjp")
+shop_catalog = ExtResource("12_catalog")
+metadata/_edit_horizontal_guides_ = [620.0, 100.0]
+metadata/_edit_vertical_guides_ = [100.0, 1180.0, 250.0, 1030.0]
+
+[node name="World" type="Node2D" parent="." unique_id=1334318055]
+
+[node name="Grid" type="TileMapLayer" parent="World" unique_id=563713513]
+tile_set = ExtResource("4_eaq8r")
+script = ExtResource("4_ternb")
+
+[node name="Board" type="Node2D" parent="World" unique_id=1641809540]
+script = ExtResource("7_board")
+
+[node name="Enemies" type="Node2D" parent="World" unique_id=88149674]
+
+[node name="Vfx" type="Node2D" parent="World" unique_id=220218346]
+script = ExtResource("10_vfx")
+
+[node name="PlayerManager" type="Node" parent="." unique_id=667498274]
+script = ExtResource("6_ternb")
+
+[node name="EnemyManager" type="Node" parent="." unique_id=1314312673]
+script = ExtResource("8_enemy")
+
+[node name="HUD" type="CanvasLayer" parent="." unique_id=1189294448]
+script = ExtResource("9_hud")
+
+[node name="Control" type="Control" parent="HUD" unique_id=418263614]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Top" type="PanelContainer" parent="HUD/Control" unique_id=836563659]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 101.0
+offset_right = -102.0
+offset_bottom = 101.0
+grow_horizontal = 2
+mouse_filter = 2
+
+[node name="TopBox" type="VBoxContainer" parent="HUD/Control/Top" unique_id=1579413358]
+layout_mode = 2
+
+[node name="TopRow" type="HBoxContainer" parent="HUD/Control/Top/TopBox" unique_id=1581073166]
+layout_mode = 2
+
+[node name="Turn" type="Label" parent="HUD/Control/Top/TopBox/TopRow" unique_id=1438995960]
+layout_mode = 2
+text = "Turn 1"
+
+[node name="Phase" type="Label" parent="HUD/Control/Top/TopBox/TopRow" unique_id=1010839142]
+layout_mode = 2
+text = "Enemy's turn"
+
+[node name="Control" type="Control" parent="HUD/Control/Top/TopBox/TopRow" unique_id=1587141076]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Gold" type="Label" parent="HUD/Control/Top/TopBox/TopRow" unique_id=1469461047]
+layout_mode = 2
+text = "0 gold"
+
+[node name="Status" type="Label" parent="HUD/Control/Top/TopBox" unique_id=482889946]
+layout_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="HUD/Control" unique_id=783174236]
+layout_mode = 1
+offset_right = 101.0
+offset_bottom = 101.0
+
+[node name="BottomLeft" type="PanelContainer" parent="HUD/Control" unique_id=1992142116]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -101.0
+offset_right = 130.0
+grow_vertical = 0
+
+[node name="BagBox" type="VBoxContainer" parent="HUD/Control/BottomLeft" unique_id=543509845]
+layout_mode = 2
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="HUD/Control/BottomLeft/BagBox" unique_id=1707826453]
+layout_mode = 2
+
+[node name="Bag" type="Label" parent="HUD/Control/BottomLeft/BagBox/HBoxContainer2" unique_id=219119673]
+layout_mode = 2
+text = "BAG"
+
+[node name="ShowBag" type="Button" parent="HUD/Control/BottomLeft/BagBox/HBoxContainer2" unique_id=1616371900]
+layout_mode = 2
+text = "SHOW"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HUD/Control/BottomLeft/BagBox" unique_id=565709907]
+layout_mode = 2
+
+[node name="Discard" type="Label" parent="HUD/Control/BottomLeft/BagBox/HBoxContainer" unique_id=1731706074]
+layout_mode = 2
+text = "DISCARD"
+
+[node name="ShowDiscard" type="Button" parent="HUD/Control/BottomLeft/BagBox/HBoxContainer" unique_id=919020278]
+layout_mode = 2
+text = "SHOW"
+
+[node name="Bottom" type="PanelContainer" parent="HUD/Control" unique_id=898704120]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 101.0
+offset_top = -101.0
+offset_right = -102.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Hands" type="HBoxContainer" parent="HUD/Control/Bottom" unique_id=545880150]
+layout_mode = 2
+
+[node name="Vowels" type="HBoxContainer" parent="HUD/Control/Bottom/Hands" unique_id=1331879539]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VowelLabel" type="Label" parent="HUD/Control/Bottom/Hands/Vowels" unique_id=1317970824]
+layout_mode = 2
+text = "VOWELS"
+
+[node name="VowelRow" type="HBoxContainer" parent="HUD/Control/Bottom/Hands/Vowels" unique_id=101788309]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Consonants" type="HBoxContainer" parent="HUD/Control/Bottom/Hands" unique_id=714543139]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ConsonantLabel" type="Label" parent="HUD/Control/Bottom/Hands/Consonants" unique_id=35688230]
+layout_mode = 2
+text = "CONSONANTS"
+
+[node name="ConsonantRow" type="HBoxContainer" parent="HUD/Control/Bottom/Hands/Consonants" unique_id=1430944394]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="BottomRight" type="PanelContainer" parent="HUD/Control" unique_id=1679088156]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -102.0
+offset_top = -101.0
+grow_horizontal = 0
+grow_vertical = 0
+size_flags_horizontal = 8
+size_flags_vertical = 8
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HUD/Control/BottomRight" unique_id=748257775]
+layout_mode = 2
+
+[node name="Undo" type="Button" parent="HUD/Control/BottomRight/VBoxContainer" unique_id=154052026]
+layout_mode = 2
+text = "UNDO"
+
+[node name="CommitWord" type="Button" parent="HUD/Control/BottomRight/VBoxContainer" unique_id=77552249]
+layout_mode = 2
+text = "COMMIT"
+
+[node name="EndTurn" type="Button" parent="HUD/Control/BottomRight/VBoxContainer" unique_id=1335471692]
+layout_mode = 2
+text = "END TURN"
+
+[node name="Left" type="PanelContainer" parent="HUD/Control" unique_id=806662399]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -259.0
+offset_right = 245.0
+offset_bottom = 259.0
+grow_vertical = 2
+
+[node name="LeftBox" type="VBoxContainer" parent="HUD/Control/Left" unique_id=1948285790]
+layout_mode = 2
+
+[node name="SpellbookLabel" type="Label" parent="HUD/Control/Left/LeftBox" unique_id=592943667]
+layout_mode = 2
+text = "SPELLBOOK"
+
+[node name="EnergyBar" type="ProgressBar" parent="HUD/Control/Left/LeftBox" unique_id=1445645090]
+layout_mode = 2
+
+[node name="EnergyLabel" type="Label" parent="HUD/Control/Left/LeftBox" unique_id=1050027639]
+layout_mode = 2
+text = "Energy 0/8"
+
+[node name="SpellScroll" type="ScrollContainer" parent="HUD/Control/Left/LeftBox" unique_id=32728862]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="SpellList" type="VBoxContainer" parent="HUD/Control/Left/LeftBox/SpellScroll" unique_id=501943571]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Right" type="PanelContainer" parent="HUD/Control" unique_id=1331383791]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -249.0
+offset_top = -259.0
+offset_bottom = 259.0
+grow_horizontal = 0
+grow_vertical = 2

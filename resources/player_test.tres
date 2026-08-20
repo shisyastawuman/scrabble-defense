@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="Player" format=3 uid="uid://dvuji4sr6yf36"]
+
+[ext_resource type="Resource" uid="uid://eppm43w0od36" path="res://resources/initial_bags/bag_test.tres" id="1"]
+[ext_resource type="Script" uid="uid://dqusl7eapnsev" path="res://scripts/classes/player.gd" id="2"]
+[ext_resource type="Script" uid="uid://cbe4qs35qip8i" path="res://scripts/classes/spell.gd" id="3"]
+[ext_resource type="Resource" path="res://resources/spells/zap.tres" id="4"]
+
+[resource]
+script = ExtResource("2")
+stack_blueprint = ExtResource("1")
+spells = Array[ExtResource("3")]([ExtResource("4")])
+vowel_hand_size = 3
+consonant_hand_size = 3
+max_energy = 8

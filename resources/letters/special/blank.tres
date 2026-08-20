@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="LetterBlueprint" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/classes/letter_blueprint.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+char = ""
+health = 1
+is_blank = true
+tooltip = "A blank. Choose any letter when you place it."

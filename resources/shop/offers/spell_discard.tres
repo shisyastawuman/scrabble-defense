@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="ShopOffer" format=3 uid="uid://bm53ye4enhwkl"]
+
+[ext_resource type="Script" uid="uid://dl8kmvmlkflpb" path="res://scripts/classes/shop_offer.gd" id="1"]
+[ext_resource type="Resource" path="res://resources/spells/discard.tres" id="2"]
+
+[resource]
+script = ExtResource("1")
+id = "spell_discard"
+display_name = "Discard"
+description = "Discard and replace a letter. Cost rises by 1 each use this turn."
+cost = 8
+unique = true
+spell = ExtResource("2")

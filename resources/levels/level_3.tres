@@ -1,0 +1,229 @@
+[gd_resource type="Resource" script_class="Level" format=3 uid="uid://m7jjt3jtp1ah"]
+
+[ext_resource type="Resource" path="res://resources/enemies/archer.tres" id="archer"]
+[ext_resource type="Resource" path="res://resources/enemies/basic.tres" id="basic"]
+[ext_resource type="Resource" path="res://resources/enemies/boss.tres" id="boss"]
+[ext_resource type="Resource" path="res://resources/enemies/buffer.tres" id="buffer"]
+[ext_resource type="Resource" path="res://resources/enemies/explosive.tres" id="explosive"]
+[ext_resource type="Script" uid="uid://dyvlea8i6pu1k" path="res://scripts/classes/spawn_group.gd" id="group"]
+[ext_resource type="Script" uid="uid://87mvoqvd1jsi" path="res://scripts/classes/level.gd" id="level"]
+[ext_resource type="Script" uid="uid://butxpa7drc8mh" path="res://scripts/classes/map.gd" id="map"]
+[ext_resource type="Resource" path="res://resources/enemies/speeder.tres" id="speeder"]
+[ext_resource type="Resource" path="res://resources/enemies/strong.tres" id="strong"]
+[ext_resource type="Script" uid="uid://cpc2qx6o7ol3x" path="res://scripts/classes/wave.gd" id="wave"]
+
+[sub_resource type="Resource" id="MapMain"]
+script = ExtResource("map")
+cols = 15
+rows = 15
+buildings = Array[Vector2i]([Vector2i(4, 7), Vector2i(7, 7), Vector2i(10, 7)])
+
+[sub_resource type="Resource" id="G1"]
+script = ExtResource("group")
+enemy = ExtResource("basic")
+count = 3
+
+[sub_resource type="Resource" id="W1"]
+script = ExtResource("wave")
+groups = Array[ExtResource("group")]([SubResource("G1")])
+
+[sub_resource type="Resource" id="G2"]
+script = ExtResource("group")
+enemy = ExtResource("archer")
+count = 2
+
+[sub_resource type="Resource" id="G3"]
+script = ExtResource("group")
+enemy = ExtResource("basic")
+count = 2
+
+[sub_resource type="Resource" id="W2"]
+script = ExtResource("wave")
+groups = Array[ExtResource("group")]([SubResource("G2"), SubResource("G3")])
+
+[sub_resource type="Resource" id="G4"]
+script = ExtResource("group")
+enemy = ExtResource("buffer")
+
+[sub_resource type="Resource" id="G5"]
+script = ExtResource("group")
+enemy = ExtResource("basic")
+count = 3
+
+[sub_resource type="Resource" id="W3"]
+script = ExtResource("wave")
+groups = Array[ExtResource("group")]([SubResource("G4"), SubResource("G5")])
+
+[sub_resource type="Resource" id="G6"]
+script = ExtResource("group")
+enemy = ExtResource("explosive")
+count = 2
+
+[sub_resource type="Resource" id="G7"]
+script = ExtResource("group")
+enemy = ExtResource("strong")
+
+[sub_resource type="Resource" id="W4"]
+script = ExtResource("wave")
+groups = Array[ExtResource("group")]([SubResource("G6"), SubResource("G7")])
+
+[sub_resource type="Resource" id="G8"]
+script = ExtResource("group")
+enemy = ExtResource("speeder")
+count = 2
+
+[sub_resource type="Resource" id="G9"]
+script = ExtResource("group")
+enemy = ExtResource("archer")
+count = 2
+
+[sub_resource type="Resource" id="W5"]
+script = ExtResource("wave")
+groups = Array[ExtResource("group")]([SubResource("G8"), SubResource("G9")])
+
+[sub_resource type="Resource" id="G10"]
+script = ExtResource("group")
+enemy = ExtResource("buffer")
+
+[sub_resource type="Resource" id="G11"]
+script = ExtResource("group")
+enemy = ExtResource("strong")
+count = 2
+
+[sub_resource type="Resource" id="W6"]
+script = ExtResource("wave")
+groups = Array[ExtResource("group")]([SubResource("G10"), SubResource("G11")])
+
+[sub_resource type="Resource" id="G12"]
+script = ExtResource("group")
+enemy = ExtResource("explosive")
+count = 3
+
+[sub_resource type="Resource" id="W7"]
+script = ExtResource("wave")
+groups = Array[ExtResource("group")]([SubResource("G12")])
+
+[sub_resource type="Resource" id="G13"]
+script = ExtResource("group")
+enemy = ExtResource("buffer")
+count = 2
+
+[sub_resource type="Resource" id="G14"]
+script = ExtResource("group")
+enemy = ExtResource("speeder")
+count = 2
+
+[sub_resource type="Resource" id="W8"]
+script = ExtResource("wave")
+groups = Array[ExtResource("group")]([SubResource("G13"), SubResource("G14")])
+
+[sub_resource type="Resource" id="G15"]
+script = ExtResource("group")
+enemy = ExtResource("strong")
+count = 3
+
+[sub_resource type="Resource" id="G16"]
+script = ExtResource("group")
+enemy = ExtResource("archer")
+count = 2
+
+[sub_resource type="Resource" id="W9"]
+script = ExtResource("wave")
+groups = Array[ExtResource("group")]([SubResource("G15"), SubResource("G16")])
+
+[sub_resource type="Resource" id="G17"]
+script = ExtResource("group")
+enemy = ExtResource("speeder")
+count = 3
+
+[sub_resource type="Resource" id="G18"]
+script = ExtResource("group")
+enemy = ExtResource("basic")
+count = 3
+
+[sub_resource type="Resource" id="W10"]
+script = ExtResource("wave")
+groups = Array[ExtResource("group")]([SubResource("G17"), SubResource("G18")])
+
+[sub_resource type="Resource" id="G19"]
+script = ExtResource("group")
+enemy = ExtResource("basic")
+count = 4
+
+[sub_resource type="Resource" id="G20"]
+script = ExtResource("group")
+enemy = ExtResource("explosive")
+count = 2
+
+[sub_resource type="Resource" id="W11"]
+script = ExtResource("wave")
+groups = Array[ExtResource("group")]([SubResource("G19"), SubResource("G20")])
+
+[sub_resource type="Resource" id="G21"]
+script = ExtResource("group")
+enemy = ExtResource("buffer")
+count = 2
+
+[sub_resource type="Resource" id="G22"]
+script = ExtResource("group")
+enemy = ExtResource("archer")
+count = 2
+
+[sub_resource type="Resource" id="G23"]
+script = ExtResource("group")
+enemy = ExtResource("strong")
+count = 2
+
+[sub_resource type="Resource" id="W12"]
+script = ExtResource("wave")
+groups = Array[ExtResource("group")]([SubResource("G21"), SubResource("G22"), SubResource("G23")])
+
+[sub_resource type="Resource" id="G24"]
+script = ExtResource("group")
+enemy = ExtResource("speeder")
+count = 3
+
+[sub_resource type="Resource" id="G25"]
+script = ExtResource("group")
+enemy = ExtResource("explosive")
+count = 2
+
+[sub_resource type="Resource" id="W13"]
+script = ExtResource("wave")
+groups = Array[ExtResource("group")]([SubResource("G24"), SubResource("G25")])
+
+[sub_resource type="Resource" id="G26"]
+script = ExtResource("group")
+enemy = ExtResource("buffer")
+count = 2
+
+[sub_resource type="Resource" id="G27"]
+script = ExtResource("group")
+enemy = ExtResource("strong")
+count = 3
+
+[sub_resource type="Resource" id="W14"]
+script = ExtResource("wave")
+groups = Array[ExtResource("group")]([SubResource("G26"), SubResource("G27")])
+
+[sub_resource type="Resource" id="G28"]
+script = ExtResource("group")
+enemy = ExtResource("boss")
+
+[sub_resource type="Resource" id="G29"]
+script = ExtResource("group")
+enemy = ExtResource("archer")
+count = 2
+
+[sub_resource type="Resource" id="G30"]
+script = ExtResource("group")
+enemy = ExtResource("buffer")
+
+[sub_resource type="Resource" id="W15"]
+script = ExtResource("wave")
+groups = Array[ExtResource("group")]([SubResource("G28"), SubResource("G29"), SubResource("G30")])
+
+[resource]
+script = ExtResource("level")
+waves = Array[ExtResource("wave")]([SubResource("W1"), SubResource("W2"), SubResource("W3"), SubResource("W4"), SubResource("W5"), SubResource("W6"), SubResource("W7"), SubResource("W8"), SubResource("W9"), SubResource("W10"), SubResource("W11"), SubResource("W12"), SubResource("W13"), SubResource("W14"), SubResource("W15")])
+map = SubResource("MapMain")
