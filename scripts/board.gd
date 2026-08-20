@@ -237,13 +237,13 @@ func commit() -> Array[Vector2i]:
 	for cell in pending:
 		placed.append(cell)
 		var letter: Letter = pending[cell]
-		letter.current_zone = Letter.ZONE.BOARD
-		letter.health = int(word_counts.get(cell, 1))
+		var copy: Letter = letter.spawn_wall_copy()
+		copy.health = int(word_counts.get(cell, 1))
 		var tile: LetterTile = pending_tiles.get(cell)
 		if tile == null:
 			tile = LetterTile.new()
 			add_child(tile)
-		tile.setup(letter, cell, false, _tile_size())
+		tile.setup(copy, cell, false, _tile_size())
 		tile.position = cell_to_local(cell)
 		if not tile.destroyed.is_connected(_on_wall_destroyed):
 			tile.destroyed.connect(_on_wall_destroyed)

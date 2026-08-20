@@ -113,7 +113,6 @@ func _start_player_turn() -> void:
 	targeting_spell = null
 	enemy_manager.unfreeze_all()
 	player_manager.begin_turn()
-	# Walls smashed last enemy phase land in discard after the previous refill.
 	player_manager.refill_hand()
 	_run_letter_turn_effects()
 	turn_start_energy = player_manager.energy
@@ -165,6 +164,9 @@ func _resolve_after_player() -> void:
 
 
 func _commit_word() -> void:
+	for cell in board.pending.keys():
+		var letter = board.pending[cell]
+		player_manager.send_to_discard(letter)
 	var placed := board.commit()
 	word_locked = true
 	turn_start_energy = player_manager.energy
@@ -459,7 +461,6 @@ func freeze_all_enemies() -> void:
 
 func _on_wall_destroyed(tile: LetterTile) -> void:
 	if tile and tile.letter:
-		player_manager.send_to_discard(tile.letter)
 		popup_at_cell(tile.cell, "-HP", Color(1.0, 0.4, 0.3))
 
 
@@ -529,8 +530,6 @@ func _collect_letters_into_state() -> void:
 		board.clear_pending_to_hand(player_manager)
 	for cell in board.walls.keys():
 		var tile: LetterTile = board.walls[cell]
-		if tile and tile.letter:
-			player_manager.bag.append(tile.letter)
 		if tile:
 			tile.queue_free()
 	board.walls.clear()

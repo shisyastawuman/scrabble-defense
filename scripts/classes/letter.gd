@@ -66,3 +66,12 @@ func effect_text() -> String:
 		if effect:
 			parts.append(effect.get_description())
 	return "\n".join(parts)
+
+
+func spawn_wall_copy() -> Letter:
+	var copy := from_blueprint(to_blueprint())
+	copy.char = char
+	copy.chosen = chosen
+	copy.is_blank = is_blank
+	copy.current_zone = ZONE.BOARD
+	return copy
