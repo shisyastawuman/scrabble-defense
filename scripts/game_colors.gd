@@ -1,7 +1,7 @@
 class_name GameColors
 extends Object
 
-const INK := Color(0.96, 0.91, 0.82)
+const INK := Color("f5e8d1ff")
 const INK_DARK := Color(0.16, 0.11, 0.08)
 const PANEL := Color(0.13, 0.1, 0.08, 0.94)
 const PANEL_BORDER := Color(0.52, 0.38, 0.2)

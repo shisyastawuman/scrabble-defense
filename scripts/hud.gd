@@ -27,7 +27,9 @@ var _consonant_row: HBoxContainer
 var _spell_list: VBoxContainer
 var _bag_count: Label
 var _discard_count: Label
-var _end_turn: Button
+var _end_turn_btn: Button
+var _undo_btn: Button
+var _commit_btn: Button
 var _tooltip: PanelContainer
 var _tooltip_label: Label
 var _popup: PanelContainer
@@ -68,7 +70,7 @@ func refresh() -> void:
 			_status.text = game.board.current_result.message
 	else:
 		_status.text = game.status_text
-	_end_turn.disabled = game.phase != GameManager.Phase.PLAYER
+	_end_turn_btn.disabled = game.phase != GameManager.Phase.PLAYER
 	_rebuild_hand_if_needed()
 	_refresh_hand(_vowel_buttons, pm.vowel_hand)
 	_refresh_hand(_consonant_buttons, pm.consonant_hand)
@@ -223,143 +225,34 @@ func is_over_ui() -> bool:
 
 func _build() -> void:
 	_root = $Control
-	#_root = Control.new()
-	#_root.set_anchors_preset(Control.PRESET_FULL_RECT)
-	#_root.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	#add_child(_root)
-
-	#var top := _panel()
-	#top.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	#top.anchor_left = 0.18
-	#top.anchor_right = 0.98
-	#top.anchor_top = 0.0
-	#top.anchor_bottom = 0.0
-	#top.offset_top = 8
-	#top.offset_bottom = 92
-	#_root.add_child(top)
-	#var top_box := VBoxContainer.new()
-	#top.add_child(top_box)
-	#var top_row := HBoxContainer.new()
-	#top_box.add_child(top_row)
-	_turn_label = $Control/Top/TopBox/TopRow/Turn
-	_phase_label = $Control/Top/TopBox/TopRow/Phase
-	_gold_label = $Control/Top/TopBox/TopRow/Gold
-	#_turn_label = _label("Turn 1", 20)
-	#_phase_label = _label("Player turn", 16)
-	#_gold_label = _label("Gold 0", 18)
-	#top_row.add_child(_turn_label)
-	#top_row.add_child(_phase_label)
-	#var spacer := Control.new()
-	#spacer.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	#top_row.add_child(spacer)
-	#top_row.add_child(_gold_label)
-	#var energy_row := HBoxContainer.new()
-	#energy_row.add_theme_constant_override("separation", 8)
-	#top_box.add_child(energy_row)
-	_energy_label = $Control/Left/LeftBox/EnergyLabel
-	_energy_bar = $Control/Left/LeftBox/EnergyBar
-	_energy_label = _label("Energy 0 / 8", 14)
-	#energy_row.add_child(_energy_label)
-	#_energy_bar = ProgressBar.new()
-	#_energy_bar.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	#_energy_bar.custom_minimum_size = Vector2(180, 18)
-	_energy_bar.show_percentage = false
+	_turn_label = %Turn
+	_phase_label = %Phase
+	_gold_label = %Gold
+	_energy_label = %EnergyLabel
+	_energy_bar = %EnergyBar
 	_energy_bar.max_value = 8
-	#energy_row.add_child(_energy_bar)
 	_energy_popup = _label("", 16)
 	_energy_popup.modulate.a = 0.0
 	$Control/Left/LeftBox.add_child(_energy_popup)
-	#energy_row.add_child(_energy_popup)
-	#_status = _label("Place a word.", 15)
-	_status = $Control/Top/TopBox/Status
+	_status = %Status
 	_status.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	#top_box.add_child(_status)
-
-	#var left := _panel()
-	#left.anchor_left = 0.0
-	#left.anchor_right = 0.0
-	#left.anchor_top = 0.0
-	#left.anchor_bottom = 1.0
-	#left.offset_left = 12
-	#left.offset_right = 214
-	#left.offset_top = 8
-	#left.offset_bottom = -176
-	#_root.add_child(left)
-	#var left_box := VBoxContainer.new()
-	#left_box.add_theme_constant_override("separation", 8)
-	#left.add_child(left_box)
-	#left_box.add_child(_label("Spellbook", 18))
-	#var spell_scroll := ScrollContainer.new()
-	#spell_scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
-	#left_box.add_child(spell_scroll)
-	_spell_list = $Control/Left/LeftBox/SpellScroll/SpellList
-	#_spell_list = VBoxContainer.new()
-	#_spell_list.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	#_spell_list.add_theme_constant_override("separation", 8)
-	#spell_scroll.add_child(_spell_list)
-
-	#var bottom := _panel()
-	#bottom.anchor_left = 0.0
-	#bottom.anchor_right = 1.0
-	#bottom.anchor_top = 1.0
-	#bottom.anchor_bottom = 1.0
-	#bottom.offset_left = 12
-	#bottom.offset_right = -12
-	#bottom.offset_top = -164
-	#bottom.offset_bottom = -10
-	#_root.add_child(bottom)
-	#var bottom_row := HBoxContainer.new()
-	#bottom_row.add_theme_constant_override("separation", 16)
-	#bottom.add_child(bottom_row)
-#
-	#var bag_box := VBoxContainer.new()
-	#bottom_row.add_child(bag_box)
-	_bag_count = $Control/BottomLeft/BagBox/HBoxContainer2/Bag
-	#_bag_count = _label("Bag  0", 16)
-	#bag_box.add_child(_bag_count)
-	#var bag_btn := _button("Show letters")
-	var bag_btn = $Control/BottomLeft/BagBox/HBoxContainer2/ShowBag
+	_spell_list = %SpellList
+	_bag_count = %Bag
+	var bag_btn = %ShowBag
 	bag_btn.pressed.connect(func() -> void:
 		show_pile("Letter bag", game.player_manager.describe_pile(game.player_manager.bag))
 	)
-	#bag_box.add_child(bag_btn)
-
-	#var hands := HBoxContainer.new()
-	#hands.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	#hands.add_theme_constant_override("separation", 28)
-	#bottom_row.add_child(hands)
-	#var vowel_wrap := VBoxContainer.new()
-	#vowel_wrap.add_child(_label("Vowels", 14))
-	
-	#_vowel_row = HBoxContainer.new()
-	_vowel_row = $Control/Bottom/Hands/Vowels/VowelRow
-	#_vowel_row.add_theme_constant_override("separation", 8)
-	#vowel_wrap.add_child(_vowel_row)
-	#hands.add_child(vowel_wrap)
-	#var cons_wrap := VBoxContainer.new()
-	#cons_wrap.add_child(_label("Consonants", 14)
-	_consonant_row = $Control/Bottom/Hands/Consonants/ConsonantRow
-	#_consonant_row = HBoxContainer.new()
-	#_consonant_row.add_theme_constant_override("separation", 8)
-	#cons_wrap.add_child(_consonant_row)
-	#hands.add_child(cons_wrap)
-
-	#var right_box := VBoxContainer.new()
-	#right_box.add_theme_constant_override("separation", 8)
-	#bottom_row.add_child(right_box)
-	_discard_count = $Control/BottomLeft/BagBox/HBoxContainer/Discard
-	#_discard_count = _label("Discard  0", 16)
-	#right_box.add_child(_discard_count)
-	var discard_btn = $Control/BottomLeft/BagBox/HBoxContainer/ShowDiscard
-	#var discard_btn := _button("Show discard")
+	_vowel_row = %VowelRow
+	_consonant_row = %ConsonantRow
+	_discard_count = %Discard
+	var discard_btn = %ShowDiscard
 	discard_btn.pressed.connect(func() -> void:
 		show_pile("Discard", game.player_manager.describe_pile(game.player_manager.discard_pile))
 	)
-	#right_box.add_child(discard_btn)
-	_end_turn = $Control/BottomRight/VBoxContainer/EndTurn
-	#_end_turn = _button("End Turn  (E)")
-	_end_turn.pressed.connect(func() -> void: end_turn_pressed.emit())
-	#right_box.add_child(_end_turn)
+	_undo_btn = %Undo
+	_end_turn_btn = %EndTurn
+	_commit_btn = %CommitWord
+	_end_turn_btn.pressed.connect(func() -> void: end_turn_pressed.emit())
 
 	_tooltip = _panel()
 	_tooltip.visible = false

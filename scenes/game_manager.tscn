@@ -15,6 +15,11 @@
 [ext_resource type="Script" uid="uid://7w5a8rggqsoi" path="res://scripts/vfx_layer.gd" id="10_vfx"]
 [ext_resource type="Resource" uid="uid://coaqyuibsocxf" path="res://resources/shop/shop_catalog.tres" id="12_catalog"]
 
+[sub_resource type="LabelSettings" id="LabelSettings_japx7"]
+font_size = 22
+
+[sub_resource type="LabelSettings" id="LabelSettings_6reaf"]
+
 [node name="GameManager" type="Node" unique_id=1720755617]
 script = ExtResource("1_hwd4i")
 levels = Array[ExtResource("2_oo155")]([ExtResource("3_lvl1"), ExtResource("3_lvl2"), ExtResource("3_lvl3")])
@@ -55,45 +60,65 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
+[node name="TopLeft" type="PanelContainer" parent="HUD/Control" unique_id=783174236]
+layout_mode = 1
+offset_right = 101.0
+offset_bottom = 101.0
+
 [node name="Top" type="PanelContainer" parent="HUD/Control" unique_id=836563659]
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
-offset_left = 101.0
-offset_right = -102.0
+offset_left = 142.0
+offset_right = -145.0
 offset_bottom = 101.0
 grow_horizontal = 2
 mouse_filter = 2
 
 [node name="TopBox" type="VBoxContainer" parent="HUD/Control/Top" unique_id=1579413358]
 layout_mode = 2
-
-[node name="TopRow" type="HBoxContainer" parent="HUD/Control/Top/TopBox" unique_id=1581073166]
-layout_mode = 2
-
-[node name="Turn" type="Label" parent="HUD/Control/Top/TopBox/TopRow" unique_id=1438995960]
-layout_mode = 2
-text = "Turn 1"
-
-[node name="Phase" type="Label" parent="HUD/Control/Top/TopBox/TopRow" unique_id=1010839142]
-layout_mode = 2
-text = "Enemy's turn"
-
-[node name="Control" type="Control" parent="HUD/Control/Top/TopBox/TopRow" unique_id=1587141076]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="Gold" type="Label" parent="HUD/Control/Top/TopBox/TopRow" unique_id=1469461047]
-layout_mode = 2
-text = "0 gold"
+theme_override_constants/separation = 8
 
 [node name="Status" type="Label" parent="HUD/Control/Top/TopBox" unique_id=482889946]
+unique_name_in_owner = true
+layout_mode = 2
+vertical_alignment = 3
+autowrap_mode = 3
+
+[node name="TopRight" type="PanelContainer" parent="HUD/Control" unique_id=532060116]
+custom_maximum_size = Vector2(-1, 100)
+layout_mode = 0
+offset_left = 1170.0
+offset_top = 2.0
+offset_right = 1276.0
+offset_bottom = 99.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HUD/Control/TopRight" unique_id=1048944341]
+custom_maximum_size = Vector2(-1, 100)
 layout_mode = 2
 
-[node name="PanelContainer" type="PanelContainer" parent="HUD/Control" unique_id=783174236]
-layout_mode = 1
-offset_right = 101.0
-offset_bottom = 101.0
+[node name="Turn" type="Label" parent="HUD/Control/TopRight/VBoxContainer" unique_id=1438995960]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Turn 1"
+label_settings = SubResource("LabelSettings_japx7")
+horizontal_alignment = 1
+
+[node name="Phase" type="Label" parent="HUD/Control/TopRight/VBoxContainer" unique_id=1010839142]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Enemy's turn"
+label_settings = SubResource("LabelSettings_6reaf")
+horizontal_alignment = 1
+vertical_alignment = 3
+autowrap_mode = 3
+
+[node name="Gold" type="Label" parent="HUD/Control/TopRight/VBoxContainer" unique_id=1469461047]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+text = "0 gold"
+horizontal_alignment = 1
 
 [node name="BottomLeft" type="PanelContainer" parent="HUD/Control" unique_id=1992142116]
 layout_mode = 1
@@ -101,7 +126,7 @@ anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
 offset_top = -101.0
-offset_right = 130.0
+offset_right = 126.0
 grow_vertical = 0
 
 [node name="BagBox" type="VBoxContainer" parent="HUD/Control/BottomLeft" unique_id=543509845]
@@ -109,23 +134,29 @@ layout_mode = 2
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="HUD/Control/BottomLeft/BagBox" unique_id=1707826453]
 layout_mode = 2
+size_flags_vertical = 3
 
 [node name="Bag" type="Label" parent="HUD/Control/BottomLeft/BagBox/HBoxContainer2" unique_id=219119673]
+unique_name_in_owner = true
 layout_mode = 2
 text = "BAG"
 
 [node name="ShowBag" type="Button" parent="HUD/Control/BottomLeft/BagBox/HBoxContainer2" unique_id=1616371900]
+unique_name_in_owner = true
 layout_mode = 2
 text = "SHOW"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="HUD/Control/BottomLeft/BagBox" unique_id=565709907]
 layout_mode = 2
+size_flags_vertical = 3
 
 [node name="Discard" type="Label" parent="HUD/Control/BottomLeft/BagBox/HBoxContainer" unique_id=1731706074]
+unique_name_in_owner = true
 layout_mode = 2
 text = "DISCARD"
 
 [node name="ShowDiscard" type="Button" parent="HUD/Control/BottomLeft/BagBox/HBoxContainer" unique_id=919020278]
+unique_name_in_owner = true
 layout_mode = 2
 text = "SHOW"
 
@@ -135,38 +166,44 @@ anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 101.0
+offset_left = 157.0
 offset_top = -101.0
-offset_right = -102.0
+offset_right = -137.0
 grow_horizontal = 2
 grow_vertical = 0
 
 [node name="Hands" type="HBoxContainer" parent="HUD/Control/Bottom" unique_id=545880150]
 layout_mode = 2
 
-[node name="Vowels" type="HBoxContainer" parent="HUD/Control/Bottom/Hands" unique_id=1331879539]
+[node name="Vowels" type="VBoxContainer" parent="HUD/Control/Bottom/Hands" unique_id=56498944]
 layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="VowelLabel" type="Label" parent="HUD/Control/Bottom/Hands/Vowels" unique_id=1317970824]
 layout_mode = 2
 text = "VOWELS"
+horizontal_alignment = 1
 
 [node name="VowelRow" type="HBoxContainer" parent="HUD/Control/Bottom/Hands/Vowels" unique_id=101788309]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_constants/separation = 8
 
-[node name="Consonants" type="HBoxContainer" parent="HUD/Control/Bottom/Hands" unique_id=714543139]
+[node name="Consonants" type="VBoxContainer" parent="HUD/Control/Bottom/Hands" unique_id=986185750]
 layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="ConsonantLabel" type="Label" parent="HUD/Control/Bottom/Hands/Consonants" unique_id=35688230]
 layout_mode = 2
 text = "CONSONANTS"
+horizontal_alignment = 1
 
 [node name="ConsonantRow" type="HBoxContainer" parent="HUD/Control/Bottom/Hands/Consonants" unique_id=1430944394]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_constants/separation = 8
 
 [node name="BottomRight" type="PanelContainer" parent="HUD/Control" unique_id=1679088156]
 layout_mode = 1
@@ -186,14 +223,17 @@ size_flags_vertical = 8
 layout_mode = 2
 
 [node name="Undo" type="Button" parent="HUD/Control/BottomRight/VBoxContainer" unique_id=154052026]
+unique_name_in_owner = true
 layout_mode = 2
 text = "UNDO"
 
 [node name="CommitWord" type="Button" parent="HUD/Control/BottomRight/VBoxContainer" unique_id=77552249]
+unique_name_in_owner = true
 layout_mode = 2
 text = "COMMIT"
 
 [node name="EndTurn" type="Button" parent="HUD/Control/BottomRight/VBoxContainer" unique_id=1335471692]
+unique_name_in_owner = true
 layout_mode = 2
 text = "END TURN"
 
@@ -202,9 +242,9 @@ layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
-offset_top = -259.0
-offset_right = 245.0
-offset_bottom = 259.0
+offset_top = -230.0
+offset_right = 243.0
+offset_bottom = 234.0
 grow_vertical = 2
 
 [node name="LeftBox" type="VBoxContainer" parent="HUD/Control/Left" unique_id=1948285790]
@@ -215,9 +255,12 @@ layout_mode = 2
 text = "SPELLBOOK"
 
 [node name="EnergyBar" type="ProgressBar" parent="HUD/Control/Left/LeftBox" unique_id=1445645090]
+unique_name_in_owner = true
 layout_mode = 2
+show_percentage = false
 
 [node name="EnergyLabel" type="Label" parent="HUD/Control/Left/LeftBox" unique_id=1050027639]
+unique_name_in_owner = true
 layout_mode = 2
 text = "Energy 0/8"
 
@@ -226,19 +269,20 @@ layout_mode = 2
 size_flags_vertical = 3
 
 [node name="SpellList" type="VBoxContainer" parent="HUD/Control/Left/LeftBox/SpellScroll" unique_id=501943571]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="Right" type="PanelContainer" parent="HUD/Control" unique_id=1331383791]
 layout_mode = 1
-anchors_preset = 6
-anchor_left = 1.0
-anchor_top = 0.5
+anchors_preset = -1
+anchor_left = 0.80600005
+anchor_top = 0.15900001
 anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = -249.0
-offset_top = -259.0
-offset_bottom = 259.0
+anchor_bottom = 0.85700005
+offset_left = 0.3199463
+offset_top = 11.519997
+offset_bottom = -23.04004
 grow_horizontal = 0
 grow_vertical = 2
