@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="DemolishLetterEffect" format=3 uid="uid://d2cc6dkrdww1u"]
+
+[ext_resource type="Script" uid="uid://c07rm336hd170" path="res://scripts/classes/spell_effects/demolishLetterEffect.gd" id="1_d75hy"]
+
+[resource]
+script = ExtResource("1_d75hy")
+metadata/_custom_type_script = "uid://c07rm336hd170"

@@ -4,6 +4,8 @@ extends Node
 signal enemy_reached_village
 signal enemies_changed
 
+@export var enemy_scene: PackedScene
+
 var grid: Grid
 var board: Board
 var level: Level
@@ -12,7 +14,6 @@ var player_manager: PlayerManager
 var enemies: Array[Enemy] = []
 var next_wave_index: int = 0
 var _ended: bool = false
-
 
 func setup(p_grid: Grid, p_board: Board, p_level: Level, p_layer: Node2D, p_player: PlayerManager) -> void:
 	grid = p_grid
@@ -120,7 +121,7 @@ func tooltip_at(cell: Vector2i) -> String:
 
 
 func _spawn(blueprint: EnemyClass, origin: Dictionary) -> void:
-	var enemy := Enemy.new()
+	var enemy = enemy_scene.instantiate() as Enemy
 	enemy.setup(
 		blueprint,
 		origin.cell,

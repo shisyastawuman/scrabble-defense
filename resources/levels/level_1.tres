@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="Level" format=3 uid="uid://bspcp3py1xjc6"]
 
-[ext_resource type="Resource" path="res://resources/enemies/basic.tres" id="basic"]
+[ext_resource type="Resource" uid="uid://cbr3qfphob5p7" path="res://resources/enemies/basic.tres" id="basic"]
 [ext_resource type="Script" uid="uid://dyvlea8i6pu1k" path="res://scripts/classes/spawn_group.gd" id="group"]
 [ext_resource type="Script" uid="uid://87mvoqvd1jsi" path="res://scripts/classes/level.gd" id="level"]
 [ext_resource type="Script" uid="uid://butxpa7drc8mh" path="res://scripts/classes/map.gd" id="map"]

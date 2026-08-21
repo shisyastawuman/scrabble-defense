@@ -8,6 +8,7 @@ enum Shape { TRIANGLE, SQUARE, DIAMOND, CIRCLE, HEX, STAR }
 @export var speed: int = 1
 @export var damage: int = 1
 @export var shape: Shape = Shape.TRIANGLE
+@export var sprite: Texture2D
 @export_multiline var tooltip: String = ""
 @export var actions: Array[EnemyAction] = []
 @export var spawn_effects: Array[EnemyEffect] = []

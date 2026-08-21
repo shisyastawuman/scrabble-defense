@@ -14,11 +14,25 @@
 [ext_resource type="Script" uid="uid://bgcc351l0vl7f" path="res://scripts/hud.gd" id="9_hud"]
 [ext_resource type="Script" uid="uid://7w5a8rggqsoi" path="res://scripts/vfx_layer.gd" id="10_vfx"]
 [ext_resource type="Resource" uid="uid://coaqyuibsocxf" path="res://resources/shop/shop_catalog.tres" id="12_catalog"]
+[ext_resource type="PackedScene" uid="uid://db1rmkvsi8x1k" path="res://scenes/enemy.tscn" id="14_cjvif"]
+[ext_resource type="PackedScene" uid="uid://bsrkqafhr1q47" path="res://assets/hud/spell_button.tscn" id="15_5xtl8"]
+[ext_resource type="Texture2D" uid="uid://h2ix1p47phot" path="res://assets/EnergyFill.png" id="18_c7a3q"]
+[ext_resource type="Script" uid="uid://bl1gpxmw8rqk5" path="res://scripts/energy_bar.gd" id="18_pc0jn"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_pc0jn"]
+font_size = 24
 
 [sub_resource type="LabelSettings" id="LabelSettings_japx7"]
 font_size = 22
 
 [sub_resource type="LabelSettings" id="LabelSettings_6reaf"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_1ffvk"]
+outline_size = 4
+outline_color = Color(0.2181288, 0.00011240937, 0.26496702, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_md0e3"]
+texture = ExtResource("18_c7a3q")
 
 [node name="GameManager" type="Node" unique_id=1720755617]
 script = ExtResource("1_hwd4i")
@@ -47,9 +61,11 @@ script = ExtResource("6_ternb")
 
 [node name="EnemyManager" type="Node" parent="." unique_id=1314312673]
 script = ExtResource("8_enemy")
+enemy_scene = ExtResource("14_cjvif")
 
 [node name="HUD" type="CanvasLayer" parent="." unique_id=1189294448]
 script = ExtResource("9_hud")
+spell_button = ExtResource("15_5xtl8")
 
 [node name="Control" type="Control" parent="HUD" unique_id=418263614]
 layout_mode = 3
@@ -81,7 +97,10 @@ theme_override_constants/separation = 8
 
 [node name="Status" type="Label" parent="HUD/Control/Top/TopBox" unique_id=482889946]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(800, 100)
+custom_maximum_size = Vector2(1000, 160)
 layout_mode = 2
+label_settings = SubResource("LabelSettings_pc0jn")
 vertical_alignment = 3
 autowrap_mode = 3
 
@@ -253,26 +272,34 @@ layout_mode = 2
 [node name="SpellbookLabel" type="Label" parent="HUD/Control/Left/LeftBox" unique_id=592943667]
 layout_mode = 2
 text = "SPELLBOOK"
+label_settings = SubResource("LabelSettings_1ffvk")
+horizontal_alignment = 1
 
 [node name="EnergyBar" type="ProgressBar" parent="HUD/Control/Left/LeftBox" unique_id=1445645090]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
+size_flags_vertical = 1
+theme_override_styles/fill = SubResource("StyleBoxTexture_md0e3")
+max_value = 10.0
+step = 1.0
+value = 5.0
 show_percentage = false
+script = ExtResource("18_pc0jn")
 
 [node name="EnergyLabel" type="Label" parent="HUD/Control/Left/LeftBox" unique_id=1050027639]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Energy 0/8"
 
-[node name="SpellScroll" type="ScrollContainer" parent="HUD/Control/Left/LeftBox" unique_id=32728862]
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="SpellList" type="VBoxContainer" parent="HUD/Control/Left/LeftBox/SpellScroll" unique_id=501943571]
+[node name="SpellList" type="GridContainer" parent="HUD/Control/Left/LeftBox" unique_id=1026042741]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+theme_override_constants/h_separation = 8
+theme_override_constants/v_separation = 8
+columns = 2
 
 [node name="Right" type="PanelContainer" parent="HUD/Control" unique_id=1331383791]
 layout_mode = 1

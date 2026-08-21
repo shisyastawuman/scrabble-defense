@@ -14,6 +14,8 @@ signal blank_cancelled(letter: Letter)
 signal enchant_letter_chosen(letter: Letter)
 signal enchant_cancelled
 
+@export var spell_button: PackedScene
+
 var game: GameManager
 var _root: Control
 var _status: Label
@@ -24,7 +26,7 @@ var _energy_label: Label
 var _energy_bar: ProgressBar
 var _vowel_row: HBoxContainer
 var _consonant_row: HBoxContainer
-var _spell_list: VBoxContainer
+var _spell_list: GridContainer
 var _bag_count: Label
 var _discard_count: Label
 var _end_turn_btn: Button
@@ -443,21 +445,21 @@ func _clear_button_presses(btn: Button) -> void:
 func _refresh_spells() -> void:
 	var spells := game.player_manager.spells
 	while _spell_buttons.size() < spells.size():
-		var btn := _button("Spell")
-		btn.alignment = HORIZONTAL_ALIGNMENT_LEFT
-		btn.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		#var btn := _button("Spell")
+		var btn := spell_button.instantiate() as SpellButton
+		#btn.alignment = HORIZONTAL_ALIGNMENT_LEFT
+		#btn.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 		btn.custom_minimum_size = Vector2(0, 64)
 		_spell_list.add_child(btn)
 		_spell_buttons.append(btn)
 	for i in _spell_buttons.size():
-		var btn := _spell_buttons[i]
+		var btn := _spell_buttons[i] as SpellButton
 		if i >= spells.size():
 			btn.visible = false
 			continue
 		var spell: Spell = spells[i]
 		btn.visible = true
-		var cost := game.player_manager.spell_cost(spell)
-		btn.text = "%s  (%d)\n%s" % [spell.display_name, cost, spell.description]
+		btn.setup(spell, game.player_manager)
 		btn.disabled = (
 			game.phase != GameManager.Phase.PLAYER
 			or not game.player_manager.can_afford(spell)

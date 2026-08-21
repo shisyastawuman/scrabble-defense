@@ -1,15 +1,15 @@
-[gd_resource type="Resource" script_class="EnemyClass" load_steps=4 format=3]
+[gd_resource type="Resource" script_class="EnemyClass" format=3 uid="uid://dufltcjlxb6v4"]
 
-[ext_resource type="Script" path="res://scripts/classes/enemy_class.gd" id="1"]
-[ext_resource type="Script" path="res://scripts/classes/enemy_action.gd" id="2"]
+[ext_resource type="Script" uid="uid://cj78jm3v0jl8q" path="res://scripts/classes/enemy_class.gd" id="1"]
+[ext_resource type="Script" uid="uid://woat707bmm3u" path="res://scripts/classes/enemy_action.gd" id="2"]
 [ext_resource type="Resource" path="res://resources/enemy_actions/gain_speed_every_2.tres" id="3"]
+[ext_resource type="Script" uid="uid://d0wsdx71ox440" path="res://scripts/classes/enemy_effect.gd" id="3_unc7j"]
+[ext_resource type="Texture2D" uid="uid://bdagb03ydsfft" path="res://assets/speedster_enemy.png" id="5_hrnf3"]
 
 [resource]
 script = ExtResource("1")
 display_name = "Speedster"
-health = 1
-speed = 1
-damage = 1
 shape = 2
+sprite = ExtResource("5_hrnf3")
 tooltip = "Gains +1 permanent speed every 2 turns."
 actions = Array[ExtResource("2")]([ExtResource("3")])

@@ -3,6 +3,8 @@ extends Node
 
 enum Phase { PLAYER, ENEMY_ACTIONS, ENEMY_MOVEMENT, ENEMY_SPAWN, GAME_OVER, TALLY, SHOP }
 
+const UX_DELAY: float = 0.75
+
 @export var levels: Array[Level]
 @export var player: Player
 @export var shop_catalog: ShopCatalog
@@ -26,8 +28,8 @@ var turn_start_energy: int = 0
 var gold_wall: int = 0
 var gold_crush: int = 0
 var pending_shop_enchantment: LetterEffect = null
-var _layout_margins := Rect2(220, 96, 24, 176)
-
+var _layout_margins := Rect2(250, 100, 250, 100)
+var _world_shrinkage: float = 0.9
 
 func _ready() -> void:
 	add_to_group("game_manager")
@@ -39,9 +41,10 @@ func _ready() -> void:
 	enemy_manager = $EnemyManager
 	hud = $HUD
 	vfx = $World/Vfx
-	player_state = PlayerState.load_from_disk()
-	if player_state == null or player_state.owned_letters.is_empty():
-		player_state = PlayerState.from_player(player)
+	player_state = PlayerState.from_player(player)
+	#player_state = PlayerState.load_from_disk()
+	#if player_state == null or player_state.owned_letters.is_empty():
+		#player_state = PlayerState.from_player(player)
 	hud.setup(self)
 	hud.end_turn_pressed.connect(_on_end_turn)
 	hud.letter_pressed.connect(_on_letter_pressed)
@@ -115,6 +118,7 @@ func _start_player_turn() -> void:
 	player_manager.begin_turn()
 	player_manager.refill_hand()
 	_run_letter_turn_effects()
+	player_manager.energy += player_state.energy_gain
 	turn_start_energy = player_manager.energy
 	status_text = "Player turn — place a word or cast spells."
 	hud.set_phase("Player turn")
@@ -143,7 +147,7 @@ func _resolve_after_player() -> void:
 	hud.set_phase("Enemy actions")
 	hud.refresh()
 	enemy_manager.run_actions()
-	await get_tree().create_timer(0.15).timeout
+	await get_tree().create_timer(UX_DELAY).timeout
 	if phase == Phase.GAME_OVER:
 		return
 	phase = Phase.ENEMY_MOVEMENT
@@ -151,6 +155,7 @@ func _resolve_after_player() -> void:
 	hud.set_phase("Enemies moving")
 	hud.refresh()
 	await enemy_manager.run_movement()
+	await get_tree().create_timer(UX_DELAY).timeout
 	if phase == Phase.GAME_OVER:
 		return
 	phase = Phase.ENEMY_SPAWN
@@ -158,6 +163,7 @@ func _resolve_after_player() -> void:
 	hud.set_phase("Enemies spawning")
 	hud.refresh()
 	await enemy_manager.spawn_next_wave()
+	await get_tree().create_timer(UX_DELAY).timeout
 	if phase == Phase.GAME_OVER:
 		return
 	_check_win()
@@ -670,7 +676,7 @@ func _layout_world() -> void:
 	var right := _layout_margins.size.x
 	var bottom := _layout_margins.size.y
 	var area := Vector2(view.x - left - right, view.y - top - bottom)
-	var world_scale := minf(area.x / grid_px.x, area.y / grid_px.y) * 0.92
+	var world_scale := minf(area.x / grid_px.x, area.y / grid_px.y) * _world_shrinkage
 	world.scale = Vector2(world_scale, world_scale)
 	var scaled := grid_px * world_scale
 	world.position = Vector2(

@@ -4,11 +4,12 @@
 [ext_resource type="Script" uid="uid://dqusl7eapnsev" path="res://scripts/classes/player.gd" id="2"]
 [ext_resource type="Script" uid="uid://cbe4qs35qip8i" path="res://scripts/classes/spell.gd" id="3"]
 [ext_resource type="Resource" path="res://resources/spells/zap.tres" id="4"]
+[ext_resource type="Resource" path="res://resources/spells/discard.tres" id="4_qulo0"]
+[ext_resource type="Resource" uid="uid://qawt1frwdha8" path="res://resources/spells/demolish.tres" id="5_gmoor"]
 
 [resource]
 script = ExtResource("2")
 stack_blueprint = ExtResource("1")
-spells = Array[ExtResource("3")]([ExtResource("4")])
-vowel_hand_size = 3
-consonant_hand_size = 3
-max_energy = 8
+spells = Array[ExtResource("3")]([ExtResource("4"), ExtResource("4_qulo0"), ExtResource("5_gmoor")])
+consonant_hand_size = 4
+max_energy = 10

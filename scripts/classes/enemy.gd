@@ -7,6 +7,7 @@ signal damaged(enemy: Enemy)
 var data: EnemyClass
 var health: int = 1
 var speed: int = 1
+var sprite: Sprite2D
 var damage: int = 1
 var cell: Vector2i
 var village_target: Vector2i
@@ -32,6 +33,8 @@ func setup(p_data: EnemyClass, p_cell: Vector2i, p_village: Vector2i, p_forward:
 	z_index = 4
 	scale = Vector2.ONE
 	_dying = false
+	sprite = %Sprite
+	sprite.texture = data.sprite
 	queue_redraw()
 
 
@@ -66,7 +69,8 @@ func take_damage(amount: int, source: String = "other") -> void:
 
 func _play_death() -> void:
 	var tween := create_tween()
-	tween.tween_property(self, "scale", Vector2.ZERO, 0.18)
+	tween.tween_property(self, "scale", Vector2.ZERO, 0.5)
+	tween.parallel().tween_property(self, "rotation_degrees", 359, 0.5)
 	tween.tween_callback(func() -> void:
 		died.emit(self)
 	)
@@ -111,49 +115,50 @@ func _draw() -> void:
 		fill = fill.lerp(Color(0.6, 0.85, 1.0), 0.55)
 	var outline := fill.darkened(0.45)
 	var radius := 16.0
-	var shape := EnemyClass.Shape.TRIANGLE
-	if data:
-		shape = data.shape
-	match shape:
-		EnemyClass.Shape.SQUARE:
-			var rect := Rect2(Vector2(-radius + 2, -radius + 2), Vector2((radius - 2) * 2, (radius - 2) * 2))
-			draw_rect(rect, fill, true)
-			draw_rect(rect, outline, false, 2.0)
-		EnemyClass.Shape.DIAMOND:
-			var pts := PackedVector2Array([
-				Vector2(0, -radius), Vector2(radius, 0), Vector2(0, radius), Vector2(-radius, 0)
-			])
-			draw_colored_polygon(pts, fill)
-			var diamond_line := PackedVector2Array(pts)
-			diamond_line.append(pts[0])
-			draw_polyline(diamond_line, outline, 2.0, true)
-		EnemyClass.Shape.CIRCLE:
-			draw_circle(Vector2.ZERO, radius, fill)
-			draw_arc(Vector2.ZERO, radius, 0.0, TAU, 24, outline, 2.0, true)
-		EnemyClass.Shape.HEX:
-			var hex := PackedVector2Array()
-			for i in 6:
-				var ang := TAU * float(i) / 6.0 - TAU / 12.0
-				hex.append(Vector2(cos(ang), sin(ang)) * radius)
-			draw_colored_polygon(hex, fill)
-			var hex_line := PackedVector2Array(hex)
-			hex_line.append(hex[0])
-			draw_polyline(hex_line, outline, 2.0, true)
-		EnemyClass.Shape.STAR:
-			var star := PackedVector2Array()
-			for i in 10:
-				var ang := TAU * float(i) / 10.0 - PI / 2.0
-				var r := radius if i % 2 == 0 else radius * 0.45
-				star.append(Vector2(cos(ang), sin(ang)) * r)
-			draw_colored_polygon(star, fill)
-		_:
-			var tri := PackedVector2Array([
-				Vector2(0, -radius), Vector2(radius, radius * 0.85), Vector2(-radius, radius * 0.85)
-			])
-			draw_colored_polygon(tri, fill)
-			var tri_line := PackedVector2Array(tri)
-			tri_line.append(tri[0])
-			draw_polyline(tri_line, outline, 2.0, true)
+	#var shape := EnemyClass.Shape.TRIANGLE
+	#if data and data.sprite:
+		#
+		#shape = data.shape
+	#match shape:
+		#EnemyClass.Shape.SQUARE:
+			#var rect := Rect2(Vector2(-radius + 2, -radius + 2), Vector2((radius - 2) * 2, (radius - 2) * 2))
+			#draw_rect(rect, fill, true)
+			#draw_rect(rect, outline, false, 2.0)
+		#EnemyClass.Shape.DIAMOND:
+			#var pts := PackedVector2Array([
+				#Vector2(0, -radius), Vector2(radius, 0), Vector2(0, radius), Vector2(-radius, 0)
+			#])
+			#draw_colored_polygon(pts, fill)
+			#var diamond_line := PackedVector2Array(pts)
+			#diamond_line.append(pts[0])
+			#draw_polyline(diamond_line, outline, 2.0, true)
+		#EnemyClass.Shape.CIRCLE:
+			#draw_circle(Vector2.ZERO, radius, fill)
+			#draw_arc(Vector2.ZERO, radius, 0.0, TAU, 24, outline, 2.0, true)
+		#EnemyClass.Shape.HEX:
+			#var hex := PackedVector2Array()
+			#for i in 6:
+				#var ang := TAU * float(i) / 6.0 - TAU / 12.0
+				#hex.append(Vector2(cos(ang), sin(ang)) * radius)
+			#draw_colored_polygon(hex, fill)
+			#var hex_line := PackedVector2Array(hex)
+			#hex_line.append(hex[0])
+			#draw_polyline(hex_line, outline, 2.0, true)
+		#EnemyClass.Shape.STAR:
+			#var star := PackedVector2Array()
+			#for i in 10:
+				#var ang := TAU * float(i) / 10.0 - PI / 2.0
+				#var r := radius if i % 2 == 0 else radius * 0.45
+				#star.append(Vector2(cos(ang), sin(ang)) * r)
+			#draw_colored_polygon(star, fill)
+		#_:
+			#var tri := PackedVector2Array([
+				#Vector2(0, -radius), Vector2(radius, radius * 0.85), Vector2(-radius, radius * 0.85)
+			#])
+			#draw_colored_polygon(tri, fill)
+			#var tri_line := PackedVector2Array(tri)
+			#tri_line.append(tri[0])
+			#draw_polyline(tri_line, outline, 2.0, true)
 	_draw_arrow(radius)
 	_draw_pips(health, Vector2(0, radius + 6))
 
@@ -165,7 +170,7 @@ func _draw_arrow(radius: float) -> void:
 	var tip := dir.normalized() * (radius + 8.0)
 	var side := dir.normalized().orthogonal() * 5.0
 	var arrow := PackedVector2Array([tip, tip - dir.normalized() * 8.0 + side, tip - dir.normalized() * 8.0 - side])
-	draw_colored_polygon(arrow, Color(1, 1, 1, 0.9))
+	draw_colored_polygon(arrow, Color(0.863, 0.0, 0.243, 0.902))
 
 
 func _draw_pips(hp: int, origin: Vector2) -> void:

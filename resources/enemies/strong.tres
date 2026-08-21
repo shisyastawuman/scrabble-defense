@@ -1,12 +1,15 @@
-[gd_resource type="Resource" script_class="EnemyClass" load_steps=2 format=3]
+[gd_resource type="Resource" script_class="EnemyClass" format=3 uid="uid://bf813q1hycvty"]
 
-[ext_resource type="Script" path="res://scripts/classes/enemy_class.gd" id="1"]
+[ext_resource type="Script" uid="uid://cj78jm3v0jl8q" path="res://scripts/classes/enemy_class.gd" id="1"]
+[ext_resource type="Script" uid="uid://woat707bmm3u" path="res://scripts/classes/enemy_action.gd" id="1_a8h28"]
+[ext_resource type="Script" uid="uid://d0wsdx71ox440" path="res://scripts/classes/enemy_effect.gd" id="2_1q7sp"]
+[ext_resource type="Texture2D" uid="uid://dvhptxyfwy4k1" path="res://assets/strong_enemy.png" id="4_kh3d8"]
 
 [resource]
 script = ExtResource("1")
 display_name = "Strong"
 health = 2
-speed = 1
 damage = 2
 shape = 1
+sprite = ExtResource("4_kh3d8")
 tooltip = "Tougher raider. Hits walls for 2 damage."

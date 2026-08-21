@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="Spell" format=3 uid="uid://qawt1frwdha8"]
+
+[ext_resource type="Script" uid="uid://cd46wi2sshvfo" path="res://scripts/classes/spell_effect.gd" id="1_edeu3"]
+[ext_resource type="Resource" uid="uid://d2cc6dkrdww1u" path="res://resources/spell_effects/demolish.tres" id="2_udkik"]
+[ext_resource type="Script" uid="uid://cbe4qs35qip8i" path="res://scripts/classes/spell.gd" id="3_urvjv"]
+
+[resource]
+script = ExtResource("3_urvjv")
+display_name = "Demolish"
+description = "Demolish one letter wall."
+target_mode = 2
+escalating_cost = true
+effects = Array[ExtResource("1_edeu3")]([ExtResource("2_udkik")])
+metadata/_custom_type_script = "uid://cbe4qs35qip8i"

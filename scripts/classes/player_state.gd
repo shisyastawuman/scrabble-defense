@@ -5,8 +5,9 @@ const SAVE_PATH := "user://player_state.tres"
 
 @export var gold: int = 0
 @export var vowel_hand_size: int = 3
-@export var consonant_hand_size: int = 3
+@export var consonant_hand_size: int = 4
 @export var max_energy: int = 8
+@export var energy_gain: int = 1
 @export var spells: Array[Spell] = []
 @export var owned_letters: Array[LetterBlueprint] = []
 @export var purchased_ids: PackedStringArray = PackedStringArray()
