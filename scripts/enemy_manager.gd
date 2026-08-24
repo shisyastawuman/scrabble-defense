@@ -179,8 +179,9 @@ func _move_enemy(enemy: Enemy) -> void:
 
 
 func _smash(enemy: Enemy, wall: LetterTile) -> void:
-	if wall:
-		wall.take_damage(enemy.damage)
+	if wall == null or not is_instance_valid(wall) or not wall.is_blocking():
+		return
+	wall.take_damage(enemy.damage)
 	if is_instance_valid(enemy):
 		enemy.take_damage(1, "wall")
 	await get_tree().create_timer(0.12).timeout

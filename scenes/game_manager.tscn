@@ -16,7 +16,9 @@
 [ext_resource type="Resource" uid="uid://coaqyuibsocxf" path="res://resources/shop/shop_catalog.tres" id="12_catalog"]
 [ext_resource type="PackedScene" uid="uid://db1rmkvsi8x1k" path="res://scenes/enemy.tscn" id="14_cjvif"]
 [ext_resource type="PackedScene" uid="uid://bsrkqafhr1q47" path="res://assets/hud/spell_button.tscn" id="15_5xtl8"]
-[ext_resource type="Texture2D" uid="uid://h2ix1p47phot" path="res://assets/EnergyFill.png" id="18_c7a3q"]
+[ext_resource type="Texture2D" uid="uid://cnut6hl78p38d" path="res://assets/EnergyCell.png" id="18_4vth2"]
+[ext_resource type="Texture2D" uid="uid://b3h4xgkal3l1h" path="res://assets/EnergyCell_Empty.png" id="18_empty"]
+[ext_resource type="Texture2D" uid="uid://brkmjrjg37yov" path="res://assets/EnergyCell_New.png" id="18_new"]
 [ext_resource type="Script" uid="uid://bl1gpxmw8rqk5" path="res://scripts/energy_bar.gd" id="18_pc0jn"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_pc0jn"]
@@ -30,9 +32,6 @@ font_size = 22
 [sub_resource type="LabelSettings" id="LabelSettings_1ffvk"]
 outline_size = 4
 outline_color = Color(0.2181288, 0.00011240937, 0.26496702, 1)
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_md0e3"]
-texture = ExtResource("18_c7a3q")
 
 [node name="GameManager" type="Node" unique_id=1720755617]
 script = ExtResource("1_hwd4i")
@@ -257,6 +256,7 @@ layout_mode = 2
 text = "END TURN"
 
 [node name="Left" type="PanelContainer" parent="HUD/Control" unique_id=806662399]
+custom_maximum_size = Vector2(244, -1)
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
@@ -267,6 +267,7 @@ offset_bottom = 234.0
 grow_vertical = 2
 
 [node name="LeftBox" type="VBoxContainer" parent="HUD/Control/Left" unique_id=1948285790]
+custom_maximum_size = Vector2(244, -1)
 layout_mode = 2
 
 [node name="SpellbookLabel" type="Label" parent="HUD/Control/Left/LeftBox" unique_id=592943667]
@@ -275,17 +276,16 @@ text = "SPELLBOOK"
 label_settings = SubResource("LabelSettings_1ffvk")
 horizontal_alignment = 1
 
-[node name="EnergyBar" type="ProgressBar" parent="HUD/Control/Left/LeftBox" unique_id=1445645090]
+[node name="EnergyBar" type="HBoxContainer" parent="HUD/Control/Left/LeftBox" unique_id=1505324405]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 30)
+propagate_maximum_size = false
 layout_mode = 2
-size_flags_vertical = 1
-theme_override_styles/fill = SubResource("StyleBoxTexture_md0e3")
-max_value = 10.0
-step = 1.0
-value = 5.0
-show_percentage = false
+theme_override_constants/separation = 0
 script = ExtResource("18_pc0jn")
+filled_texture = ExtResource("18_4vth2")
+empty_texture = ExtResource("18_empty")
+increase_texture = ExtResource("18_new")
 
 [node name="EnergyLabel" type="Label" parent="HUD/Control/Left/LeftBox" unique_id=1050027639]
 unique_name_in_owner = true

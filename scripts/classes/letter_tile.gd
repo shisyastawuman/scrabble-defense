@@ -40,6 +40,10 @@ func take_damage(amount: int) -> void:
 		_play_destroy()
 
 
+func is_blocking() -> bool:
+	return not _dying and letter != null and letter.health > 0
+
+
 func get_tooltip() -> String:
 	if letter == null:
 		return "Wall"

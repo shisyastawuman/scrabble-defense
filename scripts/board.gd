@@ -50,7 +50,7 @@ func cell_to_local(cell: Vector2i) -> Vector2:
 
 
 func has_wall(cell: Vector2i) -> bool:
-	return walls.has(cell)
+	return get_wall(cell) != null
 
 
 func has_pending(cell: Vector2i) -> bool:
@@ -58,15 +58,19 @@ func has_pending(cell: Vector2i) -> bool:
 
 
 func get_wall(cell: Vector2i) -> LetterTile:
-	return walls.get(cell)
+	var tile: LetterTile = walls.get(cell)
+	if tile == null or not is_instance_valid(tile) or not tile.is_blocking():
+		return null
+	return tile
 
 
 func adjacent_walls(cell: Vector2i) -> Array[LetterTile]:
 	var found: Array[LetterTile] = []
 	for dir in [Vector2i.LEFT, Vector2i.RIGHT, Vector2i.UP, Vector2i.DOWN]:
 		var probe: Vector2i = cell + dir
-		if walls.has(probe):
-			found.append(walls[probe])
+		var tile := get_wall(probe)
+		if tile:
+			found.append(tile)
 	return found
 
 

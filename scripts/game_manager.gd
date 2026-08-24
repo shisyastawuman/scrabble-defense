@@ -46,6 +46,7 @@ func _ready() -> void:
 	#if player_state == null or player_state.owned_letters.is_empty():
 		#player_state = PlayerState.from_player(player)
 	hud.setup(self)
+	hud.commit_word_pressed.connect(_commit_word)
 	hud.end_turn_pressed.connect(_on_end_turn)
 	hud.letter_pressed.connect(_on_letter_pressed)
 	hud.letter_dropped.connect(_on_letter_dropped)
@@ -116,10 +117,12 @@ func _start_player_turn() -> void:
 	targeting_spell = null
 	enemy_manager.unfreeze_all()
 	player_manager.begin_turn()
+	status_text = "Gaining energy and applying letter effects..."
 	player_manager.refill_hand()
 	_run_letter_turn_effects()
-	player_manager.energy += player_state.energy_gain
+	player_manager.set_energy(player_manager.energy + player_state.energy_gain)
 	turn_start_energy = player_manager.energy
+	await get_tree().create_timer(UX_DELAY).timeout
 	status_text = "Player turn — place a word or cast spells."
 	hud.set_phase("Player turn")
 	hud.refresh()
@@ -175,6 +178,7 @@ func _commit_word() -> void:
 		player_manager.send_to_discard(letter)
 	var placed := board.commit()
 	word_locked = true
+	status_text = "Play spells or end turn."
 	turn_start_energy = player_manager.energy
 	for cell in placed:
 		var tile: LetterTile = board.get_wall(cell)
@@ -211,6 +215,7 @@ func _on_letter_pressed(letter: Letter) -> void:
 		_cast_spell(targeting_spell, letter)
 		return
 	if word_locked:
+		hud.flash("Word already commited this turn.")
 		return
 	player_manager.select_letter(letter)
 	hud.refresh()

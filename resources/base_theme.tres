@@ -2522,6 +2522,11 @@ cache/0/30/0/glyphs/22/offset = Vector2(0, -23)
 cache/0/30/0/glyphs/22/size = Vector2(17, 24)
 cache/0/30/0/glyphs/22/uv_rect = Rect2(1, 1, 17, 24)
 cache/0/30/0/glyphs/22/texture_idx = 0
+cache/0/24/0/ascent = 26.0
+cache/0/24/0/descent = 8.0
+cache/0/24/0/underline_position = 1.46875
+cache/0/24/0/underline_thickness = 0.59375
+cache/0/24/0/scale = 1.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_famqs"]
 bg_color = Color(0.7788916, 0.30395788, 0.38051432, 1)

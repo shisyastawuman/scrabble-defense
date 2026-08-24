@@ -15,6 +15,7 @@ buildings = Array[Vector2i]([Vector2i(4, 4)])
 [sub_resource type="Resource" id="G1"]
 script = ExtResource("group")
 enemy = ExtResource("basic")
+count = 8
 
 [sub_resource type="Resource" id="W1"]
 script = ExtResource("wave")

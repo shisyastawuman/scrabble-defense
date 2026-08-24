@@ -1,6 +1,8 @@
 class_name HUD
 extends CanvasLayer
 
+signal undo_pressed
+signal commit_word_pressed
 signal end_turn_pressed
 signal letter_pressed(letter: Letter)
 signal letter_dropped(letter: Letter, screen_pos: Vector2)
@@ -23,7 +25,7 @@ var _turn_label: Label
 var _phase_label: Label
 var _gold_label: Label
 var _energy_label: Label
-var _energy_bar: ProgressBar
+var _energy_bar: EnergyBar
 var _vowel_row: HBoxContainer
 var _consonant_row: HBoxContainer
 var _spell_list: GridContainer
@@ -63,15 +65,19 @@ func refresh() -> void:
 	_turn_label.text = "Turn %d" % game.turn
 	_gold_label.text = "Gold %d" % game.player_state.gold
 	_energy_label.text = "Energy %d / %d" % [pm.energy, pm.max_energy]
-	_energy_bar.max_value = pm.max_energy
-	_energy_bar.value = pm.energy
+	_energy_bar.set_maximum_energy(pm.max_energy)
+	_energy_bar.set_energy(game.turn_start_energy)
+	_energy_bar.set_potential_delta(pm.energy - game.turn_start_energy)
 	if game.phase == GameManager.Phase.PLAYER:
 		if game.targeting_spell:
 			_status.text = "Target: %s" % game.targeting_spell.display_name
-		else:
+		elif not game.word_locked:
 			_status.text = game.board.current_result.message
+		else:
+			_status.text = game.status_text
 	else:
 		_status.text = game.status_text
+	_commit_btn.disabled = game.phase != GameManager.Phase.PLAYER or game.word_locked
 	_end_turn_btn.disabled = game.phase != GameManager.Phase.PLAYER
 	_rebuild_hand_if_needed()
 	_refresh_hand(_vowel_buttons, pm.vowel_hand)
@@ -232,7 +238,6 @@ func _build() -> void:
 	_gold_label = %Gold
 	_energy_label = %EnergyLabel
 	_energy_bar = %EnergyBar
-	_energy_bar.max_value = 8
 	_energy_popup = _label("", 16)
 	_energy_popup.modulate.a = 0.0
 	$Control/Left/LeftBox.add_child(_energy_popup)
@@ -254,6 +259,7 @@ func _build() -> void:
 	_undo_btn = %Undo
 	_end_turn_btn = %EndTurn
 	_commit_btn = %CommitWord
+	_commit_btn.pressed.connect(func() -> void: commit_word_pressed.emit())
 	_end_turn_btn.pressed.connect(func() -> void: end_turn_pressed.emit())
 
 	_tooltip = _panel()
@@ -401,7 +407,7 @@ func _refresh_hand(buttons: Array[Button], letters: Array[Letter]) -> void:
 		if i < letters.size():
 			var letter := letters[i]
 			btn.text = letter.display_char()
-			btn.disabled = game.phase != GameManager.Phase.PLAYER or game.word_locked
+			btn.disabled = game.phase != GameManager.Phase.PLAYER
 			btn.modulate = Color(1.15, 1.1, 0.75) if letter == game.player_manager.selected else Color.WHITE
 		else:
 			btn.text = ""
