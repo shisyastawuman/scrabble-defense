@@ -18,6 +18,7 @@ static func from_player(player: Player) -> PlayerState:
 	var state := PlayerState.new()
 	if player == null:
 		return state
+	state.gold = player.initial_gold
 	state.vowel_hand_size = player.vowel_hand_size
 	state.consonant_hand_size = player.consonant_hand_size
 	state.max_energy = maxi(player.max_energy, 1)

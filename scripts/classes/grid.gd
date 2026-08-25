@@ -62,7 +62,14 @@ func cell_at_mouse() -> Vector2i:
 func get_spawn_origins() -> Array[Dictionary]:
 	var origins: Array[Dictionary] = []
 	var dirs: Array[Vector2i] = [
-		Vector2i(1, 0), Vector2i(-1, 0), Vector2i(0, 1), Vector2i(0, -1)
+		Vector2i(1, 0),
+		Vector2i(-1, 0),
+		Vector2i(0, 1),
+		Vector2i(0, -1),
+		Vector2i(1, 1),
+		Vector2i(-1, 1),
+		Vector2i(1, -1),
+		Vector2i(-1, -1),
 	]
 	for village in village_cells:
 		for dir in dirs:

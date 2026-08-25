@@ -9,6 +9,7 @@
 
 [resource]
 script = ExtResource("2")
+initial_gold = 20
 stack_blueprint = ExtResource("1")
 spells = Array[ExtResource("3")]([ExtResource("4"), ExtResource("4_qulo0"), ExtResource("5_gmoor")])
 consonant_hand_size = 4

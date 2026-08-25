@@ -1,0 +1,158 @@
+[gd_scene format=3 uid="uid://c8eqh5a1djra0"]
+
+[ext_resource type="Script" uid="uid://i12jlq6rw24a" path="res://scripts/shop.gd" id="1_lx5au"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_6reaf"]
+font_size = 36
+
+[sub_resource type="LabelSettings" id="LabelSettings_htno0"]
+font_size = 28
+
+[sub_resource type="LabelSettings" id="LabelSettings_japx7"]
+font_size = 24
+
+[node name="Shop" type="ColorRect" unique_id=1006187077]
+clip_contents = true
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+color = Color(0.16, 0.067600004, 0.0015999984, 1)
+script = ExtResource("1_lx5au")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=2096659419]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 50
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=1778836989]
+layout_mode = 2
+
+[node name="ShopTitle" type="Label" parent="MarginContainer/VBoxContainer" unique_id=1629965570]
+layout_mode = 2
+text = "SHOP"
+label_settings = SubResource("LabelSettings_6reaf")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="GoldCounter" type="Label" parent="MarginContainer/VBoxContainer" unique_id=1203398694]
+unique_name_in_owner = true
+layout_mode = 2
+text = "%d gold"
+label_settings = SubResource("LabelSettings_htno0")
+horizontal_alignment = 1
+
+[node name="Offerings" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=230589236]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="SpellsColumn" type="VBoxContainer" parent="MarginContainer/VBoxContainer/Offerings" unique_id=2134743379]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 12
+
+[node name="SpellsHeader" type="Label" parent="MarginContainer/VBoxContainer/Offerings/SpellsColumn" unique_id=1754645325]
+layout_mode = 2
+text = "SPELLS"
+label_settings = SubResource("LabelSettings_japx7")
+horizontal_alignment = 1
+
+[node name="SpellsScroll" type="ScrollContainer" parent="MarginContainer/VBoxContainer/Offerings/SpellsColumn" unique_id=1754645326]
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="Spells" type="VBoxContainer" parent="MarginContainer/VBoxContainer/Offerings/SpellsColumn/SpellsScroll" unique_id=1754645327]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 12
+
+[node name="LettersColumn" type="VBoxContainer" parent="MarginContainer/VBoxContainer/Offerings" unique_id=2129789407]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 12
+
+[node name="LetterHeader" type="Label" parent="MarginContainer/VBoxContainer/Offerings/LettersColumn" unique_id=1982789921]
+layout_mode = 2
+text = "LETTERS"
+label_settings = SubResource("LabelSettings_japx7")
+horizontal_alignment = 1
+
+[node name="LettersScroll" type="ScrollContainer" parent="MarginContainer/VBoxContainer/Offerings/LettersColumn" unique_id=1982789922]
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="Letters" type="VBoxContainer" parent="MarginContainer/VBoxContainer/Offerings/LettersColumn/LettersScroll" unique_id=1982789923]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 12
+
+[node name="EnchantmentsColumn" type="VBoxContainer" parent="MarginContainer/VBoxContainer/Offerings" unique_id=210346865]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 12
+
+[node name="EnchantmentHeader" type="Label" parent="MarginContainer/VBoxContainer/Offerings/EnchantmentsColumn" unique_id=1175294240]
+layout_mode = 2
+text = "ENCHANTMENTS"
+label_settings = SubResource("LabelSettings_japx7")
+horizontal_alignment = 1
+
+[node name="EnchantmentsScroll" type="ScrollContainer" parent="MarginContainer/VBoxContainer/Offerings/EnchantmentsColumn" unique_id=1175294241]
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="Enchantments" type="VBoxContainer" parent="MarginContainer/VBoxContainer/Offerings/EnchantmentsColumn/EnchantmentsScroll" unique_id=1175294242]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 12
+
+[node name="UpgradesColumn" type="VBoxContainer" parent="MarginContainer/VBoxContainer/Offerings" unique_id=304688662]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 12
+
+[node name="UpgradeHeader" type="Label" parent="MarginContainer/VBoxContainer/Offerings/UpgradesColumn" unique_id=1793374827]
+layout_mode = 2
+text = "UPGRADES"
+label_settings = SubResource("LabelSettings_japx7")
+horizontal_alignment = 1
+
+[node name="UpgradesScroll" type="ScrollContainer" parent="MarginContainer/VBoxContainer/Offerings/UpgradesColumn" unique_id=1793374828]
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="Upgrades" type="VBoxContainer" parent="MarginContainer/VBoxContainer/Offerings/UpgradesColumn/UpgradesScroll" unique_id=1793374829]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 12
+
+[node name="Buttons" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=1384107836]
+layout_mode = 2
+alignment = 1
+
+[node name="NextLevelButton" type="Button" parent="MarginContainer/VBoxContainer/Buttons" unique_id=565975596]
+unique_name_in_owner = true
+layout_mode = 2
+text = "NEXT LEVEL"

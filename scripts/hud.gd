@@ -20,7 +20,9 @@ signal enchant_cancelled
 
 @export var rules_text: Resource
 @export var spell_button: PackedScene
+@export var shop_scene: PackedScene
 
+var shop: Shop
 var game: GameManager
 var _root: Control
 var _status: Label
@@ -142,6 +144,11 @@ func hide_overlays() -> void:
 	_overlay.visible = false
 	_popup.visible = false
 	_clear_overlay_buttons()
+	
+
+func delete_shop() -> void:
+	if shop:
+		shop.queue_free()
 
 
 func show_game_over(won: bool, message: String) -> void:
@@ -160,10 +167,22 @@ func show_tally(wall_gold: int, crush_bonus: int, purse: int) -> void:
 	_add_overlay_button("OK", func() -> void: tally_ok_pressed.emit())
 
 
-func show_shop(state: PlayerState, catalog: ShopCatalog) -> void:
-	_prepare_overlay()
-	_overlay_title.text = "Shop  —  %d gold" % state.gold
-	_overlay_body.text = "Everything you buy is equipped immediately."
+func clear_shop_offerings() -> void:
+	for child in shop.spells.get_children():
+		if child is Button: child.queue_free()
+	for child in shop.letters.get_children():
+		if child is Button: child.queue_free()
+	for child in shop.upgrades.get_children():
+		if child is Button: child.queue_free()
+	for child in shop.enchantments.get_children():
+		if child is Button: child.queue_free()
+
+
+func repopulate_shop(state: PlayerState, catalog: ShopCatalog) -> void:
+	if not shop:
+		return
+	shop.gold_counter.text = "%d gold" % state.gold
+	clear_shop_offerings()
 	if catalog:
 		for offer in catalog.offers:
 			if offer == null:
@@ -175,13 +194,33 @@ func show_shop(state: PlayerState, catalog: ShopCatalog) -> void:
 				"  [owned]" if owned else "",
 				offer.description
 			]
-			var btn := _add_overlay_button(label, func(picked := offer) -> void: shop_buy_pressed.emit(picked))
+			var btn := _button(label)
+			btn.pressed.connect(func(picked := offer) -> void: shop_buy_pressed.emit(picked))
 			btn.disabled = owned or state.gold < offer.cost
-			btn.custom_minimum_size = Vector2(420, 52)
+			btn.alignment = HORIZONTAL_ALIGNMENT_LEFT
+			btn.custom_minimum_size = Vector2(0, 52)
+			btn.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 			btn.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+			match offer.kind:
+				ShopOffer.Kind.SPELL:
+					shop.spells.add_child(btn)
+				ShopOffer.Kind.ENCHANTMENT:
+					shop.enchantments.add_child(btn)
+				ShopOffer.Kind.LETTER:
+					shop.letters.add_child(btn)
+				ShopOffer.Kind.UPGRADE:
+					shop.upgrades.add_child(btn)
 	else:
-		_overlay_body.text = "The shop has nothing in stock. Advance when you are ready."
-	_add_overlay_button("Next level", func() -> void: next_level_pressed.emit())
+		pass
+		#TODO Implement fallback
+
+
+func show_shop(state: PlayerState, catalog: ShopCatalog) -> void:
+	shop = shop_scene.instantiate() as Shop
+	shop.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	add_child(shop)
+	shop.next_level_btn.pressed.connect(func() -> void: next_level_pressed.emit())
+	repopulate_shop(state, catalog)
 
 
 func show_blank_picker(letter: Letter) -> void:

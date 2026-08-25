@@ -12,7 +12,9 @@ const UX_DELAY: float = 0.75
 @export var levels: Array[Level]
 @export var player: Player
 @export var shop_catalog: ShopCatalog
+@export var shop_offers_per_kind: int = 2
 
+var current_shop_catalog: ShopCatalog
 var player_manager: PlayerManager
 var enemy_manager: EnemyManager
 var grid: Grid
@@ -77,9 +79,10 @@ func _ready() -> void:
 	get_viewport().size_changed.connect(_layout_world)
 	_load_level_index(player_state.level_index)
 	_layout_world()
-	_open_rules()
-	await game_unpaused
-	_on_end_turn()
+	#_open_rules()
+	#await game_unpaused
+	#_on_end_turn()
+	_open_shop()
 
 
 func _load_level_index(index: int) -> void:
@@ -563,9 +566,35 @@ func _collect_letters_into_state() -> void:
 	player_manager.capture_state(player_state)
 
 
+func pick_random_offers() -> ShopCatalog:
+	#TODO refactor so buyables that player already has are skipped
+	var picked := ShopCatalog.new()
+	if shop_catalog == null:
+		return picked
+	var by_kind: Dictionary = {}
+	for offer in shop_catalog.offers:
+		if offer == null:
+			continue
+		if not by_kind.has(offer.kind):
+			var bucket: Array[ShopOffer] = []
+			by_kind[offer.kind] = bucket
+		by_kind[offer.kind].append(offer)
+	for kind in by_kind:
+		var pool: Array[ShopOffer] = by_kind[kind]
+		if pool.is_empty():
+			continue
+		pool.shuffle()
+		var count := mini(maxi(shop_offers_per_kind, 0), pool.size())
+		for i in count:
+			picked.offers.append(pool[i])
+	return picked
+
+
 func _open_shop() -> void:
+	hud.hide_overlays()
 	phase = Phase.SHOP
-	hud.show_shop(player_state, shop_catalog)
+	current_shop_catalog = pick_random_offers()
+	hud.show_shop(player_state, current_shop_catalog)
 
 
 func _pause() -> void:
@@ -596,6 +625,7 @@ func _start_next_level() -> void:
 	player_state.level_index += 1
 	player_state.save_to_disk()
 	hud.hide_overlays()
+	hud.delete_shop()
 	_load_level_index(player_state.level_index)
 	_on_end_turn()
 
@@ -613,7 +643,7 @@ func _buy_offer(offer: ShopOffer) -> void:
 		ShopOffer.Kind.SPELL:
 			if offer.spell == null:
 				return
-			if player_state.spells.size() >= 5:
+			if player_state.spells.size() >= 5: #TODO refactor to stat of player
 				hud.flash("Spellbook is full (5).")
 				return
 			for owned in player_state.spells:
@@ -645,7 +675,8 @@ func _buy_offer(offer: ShopOffer) -> void:
 	player_state.mark_purchased(offer.id)
 	player_manager.capture_state(player_state)
 	player_state.save_to_disk()
-	hud.show_shop(player_state, shop_catalog)
+	current_shop_catalog.offers.erase(offer)
+	hud.repopulate_shop(player_state, current_shop_catalog)
 	hud.flash("Bought %s." % offer.display_name)
 
 
@@ -663,15 +694,15 @@ func _on_blank_cancelled(letter: Letter) -> void:
 
 func _on_enchant_cancelled() -> void:
 	pending_shop_enchantment = null
-	hud.show_shop(player_state, shop_catalog)
+	hud.show_shop(player_state, current_shop_catalog)
 
 
 func _apply_enchantment_to_letter(letter: Letter) -> void:
 	if pending_shop_enchantment == null or letter == null:
 		return
 	var offer_cost := 10
-	if shop_catalog:
-		for offer in shop_catalog.offers:
+	if current_shop_catalog:
+		for offer in current_shop_catalog.offers:
 			if offer.kind == ShopOffer.Kind.ENCHANTMENT and offer.enchantment == pending_shop_enchantment:
 				offer_cost = offer.cost
 				break
@@ -684,7 +715,7 @@ func _apply_enchantment_to_letter(letter: Letter) -> void:
 	pending_shop_enchantment = null
 	player_manager.capture_state(player_state)
 	player_state.save_to_disk()
-	hud.show_shop(player_state, shop_catalog)
+	hud.show_shop(player_state, current_shop_catalog)
 	hud.flash("Letter enchanted.")
 
 

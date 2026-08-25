@@ -22,6 +22,7 @@
 [ext_resource type="Texture2D" uid="uid://b3h4xgkal3l1h" path="res://assets/hud/EnergyCell_Empty.png" id="18_empty"]
 [ext_resource type="Texture2D" uid="uid://brkmjrjg37yov" path="res://assets/hud/EnergyCell_New.png" id="18_new"]
 [ext_resource type="Script" uid="uid://bl1gpxmw8rqk5" path="res://scripts/energy_bar.gd" id="18_pc0jn"]
+[ext_resource type="PackedScene" uid="uid://c8eqh5a1djra0" path="res://scenes/shop.tscn" id="19_wcunu"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_pc0jn"]
 font_size = 24
@@ -69,6 +70,7 @@ enemy_scene = ExtResource("14_cjvif")
 script = ExtResource("9_hud")
 rules_text = ExtResource("16_yxe1x")
 spell_button = ExtResource("15_5xtl8")
+shop_scene = ExtResource("19_wcunu")
 
 [node name="Control" type="Control" parent="HUD" unique_id=418263614]
 layout_mode = 3
