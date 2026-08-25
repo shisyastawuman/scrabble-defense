@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bdagb03ydsfft"
-path="res://.godot/imported/speedster_enemy.png-f92e2df175c96e9524f45e25174c43d8.ctex"
+uid="uid://eprop6ejbc4r"
+path="res://.godot/imported/basic_enemy.png-a2bd60413bf3de237d75ff120482dd76.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/speedster_enemy.png"
-dest_files=["res://.godot/imported/speedster_enemy.png-f92e2df175c96e9524f45e25174c43d8.ctex"]
+source_file="res://assets/enemies/basic_enemy.png"
+dest_files=["res://.godot/imported/basic_enemy.png-a2bd60413bf3de237d75ff120482dd76.ctex"]
 
 [params]
 

@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://cj78jm3v0jl8q" path="res://scripts/classes/enemy_class.gd" id="1"]
 [ext_resource type="Script" uid="uid://woat707bmm3u" path="res://scripts/classes/enemy_action.gd" id="1_2i2k1"]
 [ext_resource type="Script" uid="uid://d0wsdx71ox440" path="res://scripts/classes/enemy_effect.gd" id="2_qng10"]
-[ext_resource type="Texture2D" uid="uid://eprop6ejbc4r" path="res://assets/basic_enemy.png" id="4_57ur2"]
+[ext_resource type="Texture2D" uid="uid://eprop6ejbc4r" path="res://assets/enemies/basic_enemy.png" id="4_57ur2"]
 
 [resource]
 script = ExtResource("1")

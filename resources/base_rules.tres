@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="Ruleset" format=3 uid="uid://cqtxt18ja737l"]
+
+[ext_resource type="Script" uid="uid://b0j2ketsyn5o2" path="res://scripts/ruleset.gd" id="1_bcnpt"]
+
+[resource]
+script = ExtResource("1_bcnpt")
+gold_per_crush = 2
+gold_per_wall_kill = 1
+metadata/_custom_type_script = "uid://b0j2ketsyn5o2"

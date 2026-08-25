@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="Level" format=3 uid="uid://m7jjt3jtp1ah"]
 
-[ext_resource type="Resource" path="res://resources/enemies/archer.tres" id="archer"]
+[ext_resource type="Resource" uid="uid://bm622c3liwu1t" path="res://resources/enemies/archer.tres" id="archer"]
 [ext_resource type="Resource" uid="uid://cbr3qfphob5p7" path="res://resources/enemies/basic.tres" id="basic"]
 [ext_resource type="Resource" path="res://resources/enemies/boss.tres" id="boss"]
 [ext_resource type="Resource" path="res://resources/enemies/buffer.tres" id="buffer"]

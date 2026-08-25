@@ -1,10 +1,14 @@
 class_name GameManager
 extends Node
 
-enum Phase { PLAYER, ENEMY_ACTIONS, ENEMY_MOVEMENT, ENEMY_SPAWN, GAME_OVER, TALLY, SHOP }
+signal game_paused
+signal game_unpaused
+
+enum Phase { PLAYER, ENEMY_ACTIONS, ENEMY_MOVEMENT, ENEMY_SPAWN, GAME_OVER, TALLY, SHOP, PAUSE }
 
 const UX_DELAY: float = 0.75
 
+@export var rules: Ruleset
 @export var levels: Array[Level]
 @export var player: Player
 @export var shop_catalog: ShopCatalog
@@ -21,6 +25,7 @@ var vfx: VfxLayer
 var player_state: PlayerState
 var turn: int = 0
 var phase: Phase = Phase.PLAYER
+var _phase_before_pausing: Phase = Phase.PLAYER
 var word_locked: bool = false
 var targeting_spell: Spell = null
 var status_text: String = ""
@@ -47,6 +52,8 @@ func _ready() -> void:
 		#player_state = PlayerState.from_player(player)
 	hud.setup(self)
 	hud.commit_word_pressed.connect(_commit_word)
+	hud.rules_pressed.connect(_open_rules)
+	hud.close_rules_pressed.connect(_close_rules)
 	hud.end_turn_pressed.connect(_on_end_turn)
 	hud.letter_pressed.connect(_on_letter_pressed)
 	hud.letter_dropped.connect(_on_letter_dropped)
@@ -60,7 +67,9 @@ func _ready() -> void:
 	hud.enchant_letter_chosen.connect(_apply_enchantment_to_letter)
 	hud.enchant_cancelled.connect(_on_enchant_cancelled)
 	board.wall_destroyed.connect(_on_wall_destroyed)
+	enemy_manager.enemy_damaged.connect(_on_enemy_damaged)
 	enemy_manager.enemy_reached_village.connect(_on_village_reached)
+	enemy_manager.enemy_killed.connect(_on_enemy_killed)
 	enemy_manager.enemies_changed.connect(_on_enemies_changed)
 	player_manager.energy_changed.connect(func(_e: int) -> void: hud.refresh())
 	player_manager.hand_changed.connect(func() -> void: hud.refresh())
@@ -68,6 +77,8 @@ func _ready() -> void:
 	get_viewport().size_changed.connect(_layout_world)
 	_load_level_index(player_state.level_index)
 	_layout_world()
+	_open_rules()
+	await game_unpaused
 	_on_end_turn()
 
 
@@ -483,16 +494,21 @@ func _on_enemy_damaged(enemy: Enemy) -> void:
 func _on_enemy_killed(enemy: Enemy) -> void:
 	if enemy == null:
 		return
+	var total_gold_reward: int = 0
 	if enemy.last_hit == "crush":
-		gold_wall += 1
-		gold_crush += 2
-		player_state.gold += 3
-		popup_at_cell(enemy.cell, "+3g", Color(1.0, 0.85, 0.3))
+		total_gold_reward += rules.gold_per_wall_kill
+		gold_wall += rules.gold_per_wall_kill
+		total_gold_reward += rules.gold_per_crush
+		gold_crush += rules.gold_per_crush
+		player_state.gold += total_gold_reward
+		popup_at_cell(enemy.cell, "+%g" % str(total_gold_reward), Color(1.0, 0.85, 0.3))
 	elif enemy.last_hit == "wall":
-		gold_wall += 1
-		player_state.gold += 1
-		popup_at_cell(enemy.cell, "+1g", Color(1.0, 0.85, 0.3))
-
+		total_gold_reward += rules.gold_per_wall_kill
+		gold_wall += rules.gold_per_wall_kill
+		player_state.gold += total_gold_reward
+		popup_at_cell(enemy.cell, "+%g" % str(total_gold_reward), Color(1.0, 0.85, 0.3))
+	if phase != Phase.PLAYER and phase != Phase.TALLY and phase != Phase.SHOP:
+		_check_win()
 
 func _on_village_reached() -> void:
 	_lose("An enemy reached the village.")
@@ -502,10 +518,10 @@ func _on_enemies_changed() -> void:
 	if phase != Phase.PLAYER and phase != Phase.TALLY and phase != Phase.SHOP:
 		_check_win()
 	# Hook newly spawned enemies for VFX/gold.
-	for enemy in enemy_manager.enemies:
-		if is_instance_valid(enemy) and not enemy.died.is_connected(_on_enemy_killed):
-			enemy.died.connect(_on_enemy_killed)
-			enemy.damaged.connect(_on_enemy_damaged)
+	#for enemy in enemy_manager.enemies:
+	#	if is_instance_valid(enemy) and not enemy.died.is_connected(_on_enemy_killed):
+	#		enemy.died.connect(_on_enemy_killed)
+	#		enemy.damaged.connect(_on_enemy_damaged)
 
 
 func _check_win() -> void:
@@ -550,6 +566,26 @@ func _collect_letters_into_state() -> void:
 func _open_shop() -> void:
 	phase = Phase.SHOP
 	hud.show_shop(player_state, shop_catalog)
+
+
+func _pause() -> void:
+	_phase_before_pausing = phase
+	phase = Phase.PAUSE
+	game_paused.emit()
+	
+	
+func _unpause() -> void:
+	phase = _phase_before_pausing
+	game_unpaused.emit()
+
+
+func _open_rules() -> void:
+	_pause()
+	hud.show_rules()
+	
+	
+func _close_rules() -> void:
+	_unpause()
 
 
 func _start_next_level() -> void:

@@ -15,7 +15,7 @@ buildings = Array[Vector2i]([Vector2i(4, 4)])
 [sub_resource type="Resource" id="G1"]
 script = ExtResource("group")
 enemy = ExtResource("basic")
-count = 8
+count = 2
 
 [sub_resource type="Resource" id="W1"]
 script = ExtResource("wave")
@@ -34,15 +34,7 @@ groups = Array[ExtResource("group")]([SubResource("G2")])
 script = ExtResource("wave")
 groups = Array[ExtResource("group")]([SubResource("G2")])
 
-[sub_resource type="Resource" id="Resource_2hak1"]
-script = ExtResource("wave")
-groups = Array[ExtResource("group")]([SubResource("G2")])
-
-[sub_resource type="Resource" id="Resource_7blc3"]
-script = ExtResource("wave")
-groups = Array[ExtResource("group")]([SubResource("G2")])
-
 [resource]
 script = ExtResource("level")
-waves = Array[ExtResource("wave")]([SubResource("W1"), SubResource("Resource_8dpr2"), SubResource("Resource_rpy2t"), SubResource("Resource_2hak1"), SubResource("Resource_7blc3")])
+waves = Array[ExtResource("wave")]([SubResource("W1"), SubResource("Resource_8dpr2"), SubResource("Resource_rpy2t")])
 map = SubResource("MapMain")

@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="Text" format=3 uid="uid://dgv2gjd2ds2q5"]
+
+[ext_resource type="Script" uid="uid://cic887uwt46fg" path="res://scripts/txt_tres.gd" id="1_cbvct"]
+
+[resource]
+script = ExtResource("1_cbvct")
+text = "Kill all monsters to win. If they reach your villages, you lose.
+
+Once per turn, play letters on a single axis. All formed words must be valid! Words act as walls that enemies smash into, damaging both.
+
+Connecting words is not necessary, but it will reinforce your walls with extra health. Place words ON TOP of enemies to insta-kill them and gain extra gold!
+
+Words also give you energy (the longer, the better). Use it to cast spells!"
+metadata/_custom_type_script = "uid://cic887uwt46fg"

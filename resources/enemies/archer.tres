@@ -1,15 +1,15 @@
-[gd_resource type="Resource" script_class="EnemyClass" load_steps=4 format=3]
+[gd_resource type="Resource" script_class="EnemyClass" format=3 uid="uid://bm622c3liwu1t"]
 
-[ext_resource type="Script" path="res://scripts/classes/enemy_class.gd" id="1"]
-[ext_resource type="Script" path="res://scripts/classes/enemy_action.gd" id="2"]
+[ext_resource type="Script" uid="uid://cj78jm3v0jl8q" path="res://scripts/classes/enemy_class.gd" id="1"]
+[ext_resource type="Script" uid="uid://woat707bmm3u" path="res://scripts/classes/enemy_action.gd" id="2"]
 [ext_resource type="Resource" path="res://resources/enemy_actions/range_attack_2.tres" id="3"]
+[ext_resource type="Script" uid="uid://d0wsdx71ox440" path="res://scripts/classes/enemy_effect.gd" id="3_weods"]
+[ext_resource type="Texture2D" uid="uid://bxl2k2pf2s0ix" path="res://assets/enemies/archer_enemy.png" id="5_nhrvv"]
 
 [resource]
 script = ExtResource("1")
 display_name = "Archer"
-health = 1
-speed = 1
-damage = 1
 shape = 3
+sprite = ExtResource("5_nhrvv")
 tooltip = "Attacks walls up to 2 tiles ahead."
 actions = Array[ExtResource("2")]([ExtResource("3")])

@@ -2,6 +2,8 @@ class_name EnemyManager
 extends Node
 
 signal enemy_reached_village
+signal enemy_damaged
+signal enemy_killed
 signal enemies_changed
 
 @export var enemy_scene: PackedScene
@@ -131,6 +133,7 @@ func _spawn(blueprint: EnemyClass, origin: Dictionary) -> void:
 	)
 	enemy.position = board.cell_to_local(origin.cell)
 	enemy.died.connect(_on_enemy_died)
+	enemy.damaged.connect(_on_enemy_damaged)
 	enemy_layer.add_child(enemy)
 	enemies.append(enemy)
 	if blueprint.spawn_effects:
@@ -204,6 +207,14 @@ func living() -> Array[Enemy]:
 	return enemies.duplicate()
 
 
+func _on_enemy_damaged(enemy: Enemy) -> void:
+	#TODO implement for effects upon damaged
+	#if enemy and enemy.data:
+		#for effect in enemy.data.damage_effects:
+			#if effect:
+				#effect.on_damage(enemy, board)
+	enemy_damaged.emit(enemy)
+
 func _on_enemy_died(enemy: Enemy) -> void:
 	if enemy and enemy.data:
 		for effect in enemy.data.death_effects:
@@ -212,13 +223,14 @@ func _on_enemy_died(enemy: Enemy) -> void:
 	enemies.erase(enemy)
 	if is_instance_valid(enemy):
 		enemy.queue_free()
+	enemy_killed.emit(enemy) #TODO should differentiate between killed and died
 	enemies_changed.emit()
 
 
 func _prune() -> void:
 	var living: Array[Enemy] = []
 	for enemy in enemies:
-		if is_instance_valid(enemy) and enemy.health > 0:
+		if is_instance_valid(enemy):
 			living.append(enemy)
 	enemies = living
 

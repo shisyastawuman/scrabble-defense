@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bxl2k2pf2s0ix"
-path="res://.godot/imported/archer_enemy.png-412d972a35f679eb8b32b147e5b7bfca.ctex"
+uid="uid://cnut6hl78p38d"
+path="res://.godot/imported/EnergyCell.png-54a5b34f89da1a19d2a4cabc77785089.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/archer_enemy.png"
-dest_files=["res://.godot/imported/archer_enemy.png-412d972a35f679eb8b32b147e5b7bfca.ctex"]
+source_file="res://assets/hud/EnergyCell.png"
+dest_files=["res://.godot/imported/EnergyCell.png-54a5b34f89da1a19d2a4cabc77785089.ctex"]
 
 [params]
 

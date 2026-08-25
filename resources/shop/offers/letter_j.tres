@@ -1,6 +1,6 @@
-[gd_resource type="Resource" script_class="ShopOffer" load_steps=3 format=3]
+[gd_resource type="Resource" script_class="ShopOffer" format=3 uid="uid://bjqyu1g1l4e0l"]
 
-[ext_resource type="Script" path="res://scripts/classes/shop_offer.gd" id="1"]
+[ext_resource type="Script" uid="uid://dl8kmvmlkflpb" path="res://scripts/classes/shop_offer.gd" id="1"]
 [ext_resource type="Resource" path="res://resources/letters/special/j_sniper.tres" id="2"]
 
 [resource]
@@ -8,7 +8,6 @@ script = ExtResource("1")
 id = "letter_j"
 display_name = "Sniper J"
 description = "A J that shoots the farthest enemy every turn."
-cost = 18
+cost = 3
 kind = 2
-unique = false
 letter_blueprint = ExtResource("2")

@@ -1,15 +1,12 @@
-[gd_resource type="Resource" script_class="ShopOffer" load_steps=2 format=3]
+[gd_resource type="Resource" script_class="ShopOffer" format=3 uid="uid://cioc0hyogf1l5"]
 
-[ext_resource type="Script" path="res://scripts/classes/shop_offer.gd" id="1"]
+[ext_resource type="Script" uid="uid://dl8kmvmlkflpb" path="res://scripts/classes/shop_offer.gd" id="1"]
 
 [resource]
 script = ExtResource("1")
 id = "upgrade_consonants"
 display_name = "Wider consonants"
 description = "Hold 1 extra consonant."
-cost = 14
+cost = 2
 kind = 3
-unique = false
-max_energy_bonus = 0
-vowel_size_bonus = 0
 consonant_size_bonus = 1

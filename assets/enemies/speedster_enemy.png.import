@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://h2ix1p47phot"
-path="res://.godot/imported/EnergyFill.png-f6414c1ec26ee02243e6b7dd15741349.ctex"
+uid="uid://bdagb03ydsfft"
+path="res://.godot/imported/speedster_enemy.png-132cf12daba9eaa73400e02f77a0c890.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/EnergyFill.png"
-dest_files=["res://.godot/imported/EnergyFill.png-f6414c1ec26ee02243e6b7dd15741349.ctex"]
+source_file="res://assets/enemies/speedster_enemy.png"
+dest_files=["res://.godot/imported/speedster_enemy.png-132cf12daba9eaa73400e02f77a0c890.ctex"]
 
 [params]
 

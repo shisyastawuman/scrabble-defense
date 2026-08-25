@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b3h4xgkal3l1h"
-path="res://.godot/imported/EnergyCell_Empty.png-7470a6620e8d2a3b529de32ceb07ac91.ctex"
+uid="uid://brkmjrjg37yov"
+path="res://.godot/imported/EnergyCell_New.png-c82929d4be0f11e9a13333345db0fc78.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/EnergyCell_Empty.png"
-dest_files=["res://.godot/imported/EnergyCell_Empty.png-7470a6620e8d2a3b529de32ceb07ac91.ctex"]
+source_file="res://assets/hud/EnergyCell_New.png"
+dest_files=["res://.godot/imported/EnergyCell_New.png-c82929d4be0f11e9a13333345db0fc78.ctex"]
 
 [params]
 

@@ -1,6 +1,6 @@
-[gd_resource type="Resource" script_class="ShopOffer" load_steps=3 format=3]
+[gd_resource type="Resource" script_class="ShopOffer" format=3 uid="uid://blhgjkost2pfj"]
 
-[ext_resource type="Script" path="res://scripts/classes/shop_offer.gd" id="1"]
+[ext_resource type="Script" uid="uid://dl8kmvmlkflpb" path="res://scripts/classes/shop_offer.gd" id="1"]
 [ext_resource type="Resource" path="res://resources/spells/reinforce.tres" id="2"]
 
 [resource]
@@ -8,7 +8,6 @@ script = ExtResource("1")
 id = "spell_reinforce"
 display_name = "Reinforce"
 description = "Strengthen a letter wall by 1."
-cost = 10
-kind = 0
+cost = 3
 unique = true
 spell = ExtResource("2")

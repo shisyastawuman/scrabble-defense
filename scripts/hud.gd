@@ -3,6 +3,8 @@ extends CanvasLayer
 
 signal undo_pressed
 signal commit_word_pressed
+signal rules_pressed
+signal close_rules_pressed
 signal end_turn_pressed
 signal letter_pressed(letter: Letter)
 signal letter_dropped(letter: Letter, screen_pos: Vector2)
@@ -16,6 +18,7 @@ signal blank_cancelled(letter: Letter)
 signal enchant_letter_chosen(letter: Letter)
 signal enchant_cancelled
 
+@export var rules_text: Resource
 @export var spell_button: PackedScene
 
 var game: GameManager
@@ -33,6 +36,7 @@ var _bag_count: Label
 var _discard_count: Label
 var _end_turn_btn: Button
 var _undo_btn: Button
+var _rules_btn: Button
 var _commit_btn: Button
 var _tooltip: PanelContainer
 var _tooltip_label: Label
@@ -203,6 +207,15 @@ func show_blank_picker(letter: Letter) -> void:
 	)
 
 
+func show_rules() -> void:
+	_prepare_overlay()
+	_overlay_title.text = "Welcome to Scrabble Defense!"
+	_overlay_body.text = rules_text.text
+	_add_overlay_button("Let's play!", func() -> void:
+		hide_overlays()
+		close_rules_pressed.emit()
+	)
+
 func show_enchant_picker(letters: Array[Letter]) -> void:
 	_prepare_overlay()
 	_overlay_title.text = "Enchant a letter"
@@ -257,10 +270,12 @@ func _build() -> void:
 		show_pile("Discard", game.player_manager.describe_pile(game.player_manager.discard_pile))
 	)
 	_undo_btn = %Undo
+	_rules_btn = %Rules
 	_end_turn_btn = %EndTurn
 	_commit_btn = %CommitWord
 	_commit_btn.pressed.connect(func() -> void: commit_word_pressed.emit())
 	_end_turn_btn.pressed.connect(func() -> void: end_turn_pressed.emit())
+	_rules_btn.pressed.connect(func() -> void: rules_pressed.emit())
 
 	_tooltip = _panel()
 	_tooltip.visible = false
@@ -409,6 +424,7 @@ func _refresh_hand(buttons: Array[Button], letters: Array[Letter]) -> void:
 			btn.text = letter.display_char()
 			btn.disabled = game.phase != GameManager.Phase.PLAYER
 			btn.modulate = Color(1.15, 1.1, 0.75) if letter == game.player_manager.selected else Color.WHITE
+			btn.tooltip_text = letter.effect_text() #TODO Replace with custom tooltip
 		else:
 			btn.text = ""
 			btn.disabled = true
@@ -464,6 +480,7 @@ func _refresh_spells() -> void:
 			btn.visible = false
 			continue
 		var spell: Spell = spells[i]
+		btn.tooltip_text = "%s\nCost: %d\n%s" % [spell.display_name, game.player_manager.spell_cost(spell), spell.description]			
 		btn.visible = true
 		btn.setup(spell, game.player_manager)
 		btn.disabled = (

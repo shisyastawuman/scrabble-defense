@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://bc6ysotluw3xf"]
 
 [ext_resource type="Script" uid="uid://m47ucyug6vmt" path="res://scripts/game_manager.gd" id="1_hwd4i"]
+[ext_resource type="Resource" uid="uid://cqtxt18ja737l" path="res://resources/base_rules.tres" id="2_jrl6a"]
 [ext_resource type="Script" uid="uid://87mvoqvd1jsi" path="res://scripts/classes/level.gd" id="2_oo155"]
 [ext_resource type="Resource" uid="uid://bspcp3py1xjc6" path="res://resources/levels/level_1.tres" id="3_lvl1"]
 [ext_resource type="Resource" uid="uid://b6amwtt03v8hw" path="res://resources/levels/level_2.tres" id="3_lvl2"]
@@ -15,10 +16,11 @@
 [ext_resource type="Script" uid="uid://7w5a8rggqsoi" path="res://scripts/vfx_layer.gd" id="10_vfx"]
 [ext_resource type="Resource" uid="uid://coaqyuibsocxf" path="res://resources/shop/shop_catalog.tres" id="12_catalog"]
 [ext_resource type="PackedScene" uid="uid://db1rmkvsi8x1k" path="res://scenes/enemy.tscn" id="14_cjvif"]
-[ext_resource type="PackedScene" uid="uid://bsrkqafhr1q47" path="res://assets/hud/spell_button.tscn" id="15_5xtl8"]
-[ext_resource type="Texture2D" uid="uid://cnut6hl78p38d" path="res://assets/EnergyCell.png" id="18_4vth2"]
-[ext_resource type="Texture2D" uid="uid://b3h4xgkal3l1h" path="res://assets/EnergyCell_Empty.png" id="18_empty"]
-[ext_resource type="Texture2D" uid="uid://brkmjrjg37yov" path="res://assets/EnergyCell_New.png" id="18_new"]
+[ext_resource type="PackedScene" uid="uid://bsrkqafhr1q47" path="res://scenes/spell_button.tscn" id="15_5xtl8"]
+[ext_resource type="Resource" uid="uid://dgv2gjd2ds2q5" path="res://resources/rules_text.tres" id="16_yxe1x"]
+[ext_resource type="Texture2D" uid="uid://cnut6hl78p38d" path="res://assets/hud/EnergyCell.png" id="18_4vth2"]
+[ext_resource type="Texture2D" uid="uid://b3h4xgkal3l1h" path="res://assets/hud/EnergyCell_Empty.png" id="18_empty"]
+[ext_resource type="Texture2D" uid="uid://brkmjrjg37yov" path="res://assets/hud/EnergyCell_New.png" id="18_new"]
 [ext_resource type="Script" uid="uid://bl1gpxmw8rqk5" path="res://scripts/energy_bar.gd" id="18_pc0jn"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_pc0jn"]
@@ -35,6 +37,7 @@ outline_color = Color(0.2181288, 0.00011240937, 0.26496702, 1)
 
 [node name="GameManager" type="Node" unique_id=1720755617]
 script = ExtResource("1_hwd4i")
+rules = ExtResource("2_jrl6a")
 levels = Array[ExtResource("2_oo155")]([ExtResource("3_lvl1"), ExtResource("3_lvl2"), ExtResource("3_lvl3")])
 player = ExtResource("4_q8mjp")
 shop_catalog = ExtResource("12_catalog")
@@ -64,6 +67,7 @@ enemy_scene = ExtResource("14_cjvif")
 
 [node name="HUD" type="CanvasLayer" parent="." unique_id=1189294448]
 script = ExtResource("9_hud")
+rules_text = ExtResource("16_yxe1x")
 spell_button = ExtResource("15_5xtl8")
 
 [node name="Control" type="Control" parent="HUD" unique_id=418263614]
@@ -240,8 +244,14 @@ size_flags_vertical = 8
 [node name="VBoxContainer" type="VBoxContainer" parent="HUD/Control/BottomRight" unique_id=748257775]
 layout_mode = 2
 
+[node name="Rules" type="Button" parent="HUD/Control/BottomRight/VBoxContainer" unique_id=889108598]
+unique_name_in_owner = true
+layout_mode = 2
+text = "RULES"
+
 [node name="Undo" type="Button" parent="HUD/Control/BottomRight/VBoxContainer" unique_id=154052026]
 unique_name_in_owner = true
+visible = false
 layout_mode = 2
 text = "UNDO"
 
@@ -296,7 +306,6 @@ text = "Energy 0/8"
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_vertical = 3
 theme_override_constants/h_separation = 8
 theme_override_constants/v_separation = 8
 columns = 2
