@@ -71,6 +71,7 @@ func _ready() -> void:
 	board.wall_destroyed.connect(_on_wall_destroyed)
 	enemy_manager.enemy_damaged.connect(_on_enemy_damaged)
 	enemy_manager.enemy_reached_village.connect(_on_village_reached)
+	enemy_manager.enemy_left_map.connect(_on_opposite_edge_reached)
 	enemy_manager.enemy_killed.connect(_on_enemy_killed)
 	enemy_manager.enemies_changed.connect(_on_enemies_changed)
 	player_manager.energy_changed.connect(func(_e: int) -> void: hud.refresh())
@@ -81,8 +82,8 @@ func _ready() -> void:
 	_layout_world()
 	#_open_rules()
 	#await game_unpaused
-	#_on_end_turn()
-	_open_shop()
+	_on_end_turn()
+	#_open_shop()
 
 
 func _load_level_index(index: int) -> void:
@@ -504,17 +505,21 @@ func _on_enemy_killed(enemy: Enemy) -> void:
 		total_gold_reward += rules.gold_per_crush
 		gold_crush += rules.gold_per_crush
 		player_state.gold += total_gold_reward
-		popup_at_cell(enemy.cell, "+%g" % str(total_gold_reward), Color(1.0, 0.85, 0.3))
+		hud.popup_gold("+%s" % total_gold_reward)
 	elif enemy.last_hit == "wall":
 		total_gold_reward += rules.gold_per_wall_kill
 		gold_wall += rules.gold_per_wall_kill
 		player_state.gold += total_gold_reward
-		popup_at_cell(enemy.cell, "+%g" % str(total_gold_reward), Color(1.0, 0.85, 0.3))
+		hud.popup_gold("+%s" % total_gold_reward)
 	if phase != Phase.PLAYER and phase != Phase.TALLY and phase != Phase.SHOP:
 		_check_win()
 
 func _on_village_reached() -> void:
 	_lose("An enemy reached the village.")
+
+
+func _on_opposite_edge_reached() -> void:
+	pass
 
 
 func _on_enemies_changed() -> void:
@@ -530,7 +535,7 @@ func _on_enemies_changed() -> void:
 func _check_win() -> void:
 	if phase == Phase.GAME_OVER or phase == Phase.TALLY or phase == Phase.SHOP:
 		return
-	if enemy_manager.has_living_enemies():
+	if enemy_manager.has_living_enemies(true):
 		return
 	if enemy_manager.has_remaining_waves():
 		return

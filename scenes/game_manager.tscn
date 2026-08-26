@@ -3,12 +3,10 @@
 [ext_resource type="Script" uid="uid://m47ucyug6vmt" path="res://scripts/game_manager.gd" id="1_hwd4i"]
 [ext_resource type="Resource" uid="uid://cqtxt18ja737l" path="res://resources/base_rules.tres" id="2_jrl6a"]
 [ext_resource type="Script" uid="uid://87mvoqvd1jsi" path="res://scripts/classes/level.gd" id="2_oo155"]
-[ext_resource type="Resource" uid="uid://bspcp3py1xjc6" path="res://resources/levels/level_1.tres" id="3_lvl1"]
-[ext_resource type="Resource" uid="uid://b6amwtt03v8hw" path="res://resources/levels/level_2.tres" id="3_lvl2"]
-[ext_resource type="Resource" uid="uid://m7jjt3jtp1ah" path="res://resources/levels/level_3.tres" id="3_lvl3"]
 [ext_resource type="TileSet" uid="uid://eqa2bw2pg28i" path="res://resources/base_tile_set.tres" id="4_eaq8r"]
 [ext_resource type="Resource" uid="uid://dvuji4sr6yf36" path="res://resources/player_test.tres" id="4_q8mjp"]
 [ext_resource type="Script" uid="uid://s8c075opcu5p" path="res://scripts/classes/grid.gd" id="4_ternb"]
+[ext_resource type="Resource" uid="uid://cjy7giq6v0gyj" path="res://resources/levels/level_test.tres" id="4_yxe1x"]
 [ext_resource type="Script" uid="uid://c4cyxieex8s80" path="res://scripts/player_manager.gd" id="6_ternb"]
 [ext_resource type="Script" uid="uid://drl52hihmtt3x" path="res://scripts/board.gd" id="7_board"]
 [ext_resource type="Script" uid="uid://bwwcbqx5vptth" path="res://scripts/enemy_manager.gd" id="8_enemy"]
@@ -32,6 +30,9 @@ font_size = 22
 
 [sub_resource type="LabelSettings" id="LabelSettings_6reaf"]
 
+[sub_resource type="LabelSettings" id="LabelSettings_x7otx"]
+font_color = Color(0.99, 0.65224504, 0.10890002, 1)
+
 [sub_resource type="LabelSettings" id="LabelSettings_1ffvk"]
 outline_size = 4
 outline_color = Color(0.2181288, 0.00011240937, 0.26496702, 1)
@@ -39,7 +40,7 @@ outline_color = Color(0.2181288, 0.00011240937, 0.26496702, 1)
 [node name="GameManager" type="Node" unique_id=1720755617]
 script = ExtResource("1_hwd4i")
 rules = ExtResource("2_jrl6a")
-levels = Array[ExtResource("2_oo155")]([ExtResource("3_lvl1"), ExtResource("3_lvl2"), ExtResource("3_lvl3")])
+levels = Array[ExtResource("2_oo155")]([ExtResource("4_yxe1x")])
 player = ExtResource("4_q8mjp")
 shop_catalog = ExtResource("12_catalog")
 metadata/_edit_horizontal_guides_ = [620.0, 100.0]
@@ -137,12 +138,21 @@ horizontal_alignment = 1
 vertical_alignment = 3
 autowrap_mode = 3
 
-[node name="Gold" type="Label" parent="HUD/Control/TopRight/VBoxContainer" unique_id=1469461047]
+[node name="HBoxContainer" type="HBoxContainer" parent="HUD/Control/TopRight/VBoxContainer" unique_id=501544362]
+layout_mode = 2
+
+[node name="Gold" type="Label" parent="HUD/Control/TopRight/VBoxContainer/HBoxContainer" unique_id=1469461047]
+unique_name_in_owner = true
+layout_mode = 2
+text = "0 gold"
+label_settings = SubResource("LabelSettings_x7otx")
+horizontal_alignment = 1
+
+[node name="GoldPopup" type="Label" parent="HUD/Control/TopRight/VBoxContainer/HBoxContainer" unique_id=50586077]
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
-text = "0 gold"
-horizontal_alignment = 1
+text = "+1"
 
 [node name="BottomLeft" type="PanelContainer" parent="HUD/Control" unique_id=1992142116]
 layout_mode = 1

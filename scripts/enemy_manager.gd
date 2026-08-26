@@ -2,6 +2,7 @@ class_name EnemyManager
 extends Node
 
 signal enemy_reached_village
+signal enemy_left_map
 signal enemy_damaged
 signal enemy_killed
 signal enemies_changed
@@ -32,9 +33,12 @@ func setup(p_grid: Grid, p_board: Board, p_level: Level, p_layer: Node2D, p_play
 	enemies_changed.emit()
 
 
-func has_living_enemies() -> bool:
+func has_living_enemies(required_to_win_only: bool = false) -> bool:
 	_prune()
-	return not enemies.is_empty()
+	if required_to_win_only:
+		return not enemies.filter(func(enemy): return enemy.data.counts_for_win).is_empty()
+	else:
+		return not enemies.is_empty()
 
 
 func has_remaining_waves() -> bool:
@@ -96,16 +100,29 @@ func spawn_next_wave() -> void:
 	next_wave_index += 1
 	if wave == null:
 		return
-	var origins := grid.get_spawn_origins()
-	if origins.is_empty():
-		return
 	for group in wave.groups:
 		if group == null or group.enemy == null:
 			continue
 		for _i in group.count:
 			if _ended:
 				return
-			var origin: Dictionary = origins.pick_random()
+			var origin: Dictionary
+			match group.enemy.spawn_mode:
+				EnemyClass.SpawnMode.VILLAGE_RAY:
+					var origins := grid.get_spawn_origins()
+					if origins.is_empty():
+						return
+					origin = origins.pick_random()
+				EnemyClass.SpawnMode.ADJACENT_TO_SPAWN:
+					var origins := grid.get_spawn_adjacent_origins()
+					if origins.is_empty():
+						return
+					origin = origins.pick_random()
+				EnemyClass.SpawnMode.RANDOM_BORDER:
+					var origins := grid.get_border_origins_no_spawn()
+					if origins.is_empty():
+						return
+					origin = origins.pick_random()
 			_spawn(group.enemy, origin)
 			await get_tree().create_timer(0.08).timeout
 	_restack()
@@ -127,7 +144,7 @@ func _spawn(blueprint: EnemyClass, origin: Dictionary) -> void:
 	enemy.setup(
 		blueprint,
 		origin.cell,
-		origin.village,
+		#origin.village,
 		origin.forward,
 		board._tile_size()
 	)
@@ -145,7 +162,14 @@ func _spawn(blueprint: EnemyClass, origin: Dictionary) -> void:
 func _move_enemy(enemy: Enemy) -> void:
 	var steps := enemy.speed
 	for _step in steps:
+		if enemy.data.goal == EnemyClass.Goal.NUMBER_OF_STEPS and enemy._remaining_steps <= 0:
+			_ended = true
+			return
 		if _ended or not is_instance_valid(enemy) or enemy.health <= 0:
+			return
+		if grid.is_enemy_land(enemy.cell) and enemy.cell != enemy.origin_cell:
+			_ended = true
+			_leave_map(enemy)
 			return
 		if grid.is_village(enemy.cell):
 			_ended = true
@@ -178,6 +202,8 @@ func _move_enemy(enemy: Enemy) -> void:
 				return
 			continue
 		enemy.cell = next
+		if enemy.data.goal == EnemyClass.Goal.NUMBER_OF_STEPS:
+			enemy._remaining_steps -= 1
 		await enemy.animate_to(board.cell_to_local(next))
 
 
@@ -224,6 +250,14 @@ func _on_enemy_died(enemy: Enemy) -> void:
 	if is_instance_valid(enemy):
 		enemy.queue_free()
 	enemy_killed.emit(enemy) #TODO should differentiate between killed and died
+	enemies_changed.emit()
+
+
+func _leave_map(enemy: Enemy) -> void:
+	enemies.erase(enemy)
+	if is_instance_valid(enemy):
+		enemy.queue_free()
+	enemy_left_map.emit(enemy)
 	enemies_changed.emit()
 
 

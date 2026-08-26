@@ -29,6 +29,7 @@ var _status: Label
 var _turn_label: Label
 var _phase_label: Label
 var _gold_label: Label
+var _gold_popup: Label
 var _energy_label: Label
 var _energy_bar: EnergyBar
 var _vowel_row: HBoxContainer
@@ -111,6 +112,17 @@ func popup_energy(text: String, color: Color) -> void:
 	var tween := create_tween()
 	tween.tween_property(_energy_popup, "modulate:a", 0.0, 0.8)
 
+
+func popup_gold(text: String) -> void:
+	if _gold_popup == null:
+		return
+	_gold_popup.show()
+	_gold_popup.text = text
+	_gold_popup.modulate = Color(1.0, 0.85, 0.3)
+	_gold_popup.modulate.a = 1.0
+	var tween := create_tween()
+	tween.tween_property(_gold_popup, "modulate:a", 0.0, 0.8)
+	tween.tween_callback(_gold_popup.hide)
 
 func show_tooltip(text: String, screen_pos: Vector2) -> void:
 	if text.is_empty():
@@ -288,6 +300,7 @@ func _build() -> void:
 	_turn_label = %Turn
 	_phase_label = %Phase
 	_gold_label = %Gold
+	_gold_popup = %GoldPopup
 	_energy_label = %EnergyLabel
 	_energy_bar = %EnergyBar
 	_energy_popup = _label("", 16)
