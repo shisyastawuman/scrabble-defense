@@ -5,12 +5,19 @@
 [ext_resource type="Resource" uid="uid://b5yviur7u0xn6" path="res://resources/shop/offers/spell_storm.tres" id="4"]
 [ext_resource type="Resource" uid="uid://dkpak0rj6kc4h" path="res://resources/shop/offers/spell_freeze.tres" id="5"]
 [ext_resource type="Resource" uid="uid://blhgjkost2pfj" path="res://resources/shop/offers/spell_reinforce.tres" id="6"]
+[ext_resource type="Resource" path="res://resources/shop/offers/letter_h.tres" id="6_fkytw"]
+[ext_resource type="Resource" path="res://resources/shop/offers/letter_v.tres" id="6_og116"]
+[ext_resource type="Resource" uid="uid://brqh8vy2aab6a" path="res://resources/shop/offers/letter_k.tres" id="8_ltgvh"]
+[ext_resource type="Resource" uid="uid://dg2u45xprw2uw" path="res://resources/shop/offers/letter_q.tres" id="9_mxday"]
 [ext_resource type="Resource" uid="uid://e8yd5u6nhut2" path="res://resources/shop/offers/letter_blank.tres" id="10"]
+[ext_resource type="Resource" path="res://resources/shop/offers/letter_w.tres" id="10_md3y4"]
 [ext_resource type="Resource" uid="uid://bjqyu1g1l4e0l" path="res://resources/shop/offers/letter_j.tres" id="12"]
+[ext_resource type="Resource" path="res://resources/shop/offers/letter_y.tres" id="12_anqc4"]
+[ext_resource type="Resource" path="res://resources/shop/offers/letter_z.tres" id="13_8nqkb"]
 [ext_resource type="Resource" uid="uid://cyy0bkj5iwenl" path="res://resources/shop/offers/upgrade_energy.tres" id="15"]
 [ext_resource type="Resource" uid="uid://dutb8nt5gxw20" path="res://resources/shop/offers/upgrade_vowels.tres" id="16"]
 [ext_resource type="Resource" uid="uid://cioc0hyogf1l5" path="res://resources/shop/offers/upgrade_consonants.tres" id="17"]
 
 [resource]
 script = ExtResource("1")
-offers = Array[ExtResource("2")]([ExtResource("4"), ExtResource("5"), ExtResource("6"), ExtResource("10"), ExtResource("12"), ExtResource("15"), ExtResource("16"), ExtResource("17")])
+offers = Array[ExtResource("2")]([ExtResource("4"), ExtResource("5"), ExtResource("6"), ExtResource("10"), ExtResource("6_fkytw"), ExtResource("12"), ExtResource("8_ltgvh"), ExtResource("9_mxday"), ExtResource("6_og116"), ExtResource("10_md3y4"), ExtResource("12_anqc4"), ExtResource("13_8nqkb"), ExtResource("16"), ExtResource("15"), ExtResource("17")])

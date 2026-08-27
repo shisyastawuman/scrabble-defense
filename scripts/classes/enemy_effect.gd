@@ -12,5 +12,5 @@ func on_death(_enemy: Node2D, _board: Node) -> void:
 
 
 ## Return true if the enemy should skip the wall (for example, jump over it).
-func on_wall_encounter(_enemy: Node2D, _wall: Node2D) -> bool:
-	return false
+func on_wall_encounter(_enemy: Node2D, _wall: Node2D) -> void:
+	pass

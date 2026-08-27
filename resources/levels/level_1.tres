@@ -1,5 +1,7 @@
 [gd_resource type="Resource" script_class="Level" format=3 uid="uid://bspcp3py1xjc6"]
 
+[ext_resource type="Resource" uid="uid://bf813q1hycvty" path="res://resources/enemies/strong.tres" id="6_2hak1"]
+[ext_resource type="Resource" uid="uid://kf3jr6ysdncr" path="res://resources/enemies/moneybags.tres" id="7_7blc3"]
 [ext_resource type="Resource" uid="uid://cbr3qfphob5p7" path="res://resources/enemies/basic.tres" id="basic"]
 [ext_resource type="Script" uid="uid://dyvlea8i6pu1k" path="res://scripts/classes/spawn_group.gd" id="group"]
 [ext_resource type="Script" uid="uid://87mvoqvd1jsi" path="res://scripts/classes/level.gd" id="level"]
@@ -15,12 +17,86 @@ buildings = Array[Vector2i]([Vector2i(4, 4)])
 [sub_resource type="Resource" id="G1"]
 script = ExtResource("group")
 enemy = ExtResource("basic")
+count = 2
 
 [sub_resource type="Resource" id="W1"]
 script = ExtResource("wave")
 groups = Array[ExtResource("group")]([SubResource("G1")])
 
+[sub_resource type="Resource" id="Resource_03klq"]
+script = ExtResource("group")
+enemy = ExtResource("basic")
+metadata/_custom_type_script = "uid://dyvlea8i6pu1k"
+
+[sub_resource type="Resource" id="Resource_aatcd"]
+script = ExtResource("wave")
+groups = Array[ExtResource("group")]([SubResource("Resource_03klq")])
+metadata/_custom_type_script = "uid://cpc2qx6o7ol3x"
+
+[sub_resource type="Resource" id="Resource_lwojh"]
+script = ExtResource("group")
+enemy = ExtResource("basic")
+count = 3
+metadata/_custom_type_script = "uid://dyvlea8i6pu1k"
+
+[sub_resource type="Resource" id="Resource_h3f0d"]
+script = ExtResource("wave")
+groups = Array[ExtResource("group")]([SubResource("Resource_lwojh")])
+metadata/_custom_type_script = "uid://cpc2qx6o7ol3x"
+
+[sub_resource type="Resource" id="Resource_u1hi3"]
+script = ExtResource("group")
+enemy = ExtResource("6_2hak1")
+metadata/_custom_type_script = "uid://dyvlea8i6pu1k"
+
+[sub_resource type="Resource" id="Resource_y0e31"]
+script = ExtResource("group")
+enemy = ExtResource("basic")
+metadata/_custom_type_script = "uid://dyvlea8i6pu1k"
+
+[sub_resource type="Resource" id="Resource_x0ka0"]
+script = ExtResource("wave")
+groups = Array[ExtResource("group")]([SubResource("Resource_u1hi3"), SubResource("Resource_y0e31")])
+metadata/_custom_type_script = "uid://cpc2qx6o7ol3x"
+
+[sub_resource type="Resource" id="Resource_jrl6a"]
+script = ExtResource("group")
+enemy = ExtResource("basic")
+count = 2
+metadata/_custom_type_script = "uid://dyvlea8i6pu1k"
+
+[sub_resource type="Resource" id="Resource_4fnh2"]
+script = ExtResource("wave")
+groups = Array[ExtResource("group")]([SubResource("Resource_jrl6a")])
+metadata/_custom_type_script = "uid://cpc2qx6o7ol3x"
+
+[sub_resource type="Resource" id="Resource_oqr40"]
+script = ExtResource("group")
+enemy = ExtResource("7_7blc3")
+metadata/_custom_type_script = "uid://dyvlea8i6pu1k"
+
+[sub_resource type="Resource" id="Resource_m5q4r"]
+script = ExtResource("wave")
+groups = Array[ExtResource("group")]([SubResource("Resource_oqr40")])
+metadata/_custom_type_script = "uid://cpc2qx6o7ol3x"
+
+[sub_resource type="Resource" id="Resource_0jpmf"]
+script = ExtResource("group")
+enemy = ExtResource("6_2hak1")
+count = 3
+metadata/_custom_type_script = "uid://dyvlea8i6pu1k"
+
+[sub_resource type="Resource" id="Resource_03h4y"]
+script = ExtResource("group")
+enemy = ExtResource("basic")
+metadata/_custom_type_script = "uid://dyvlea8i6pu1k"
+
+[sub_resource type="Resource" id="Resource_58o0w"]
+script = ExtResource("wave")
+groups = Array[ExtResource("group")]([SubResource("Resource_0jpmf"), SubResource("Resource_03h4y")])
+metadata/_custom_type_script = "uid://cpc2qx6o7ol3x"
+
 [resource]
 script = ExtResource("level")
-waves = Array[ExtResource("wave")]([SubResource("W1")])
+waves = Array[ExtResource("wave")]([SubResource("W1"), SubResource("Resource_aatcd"), SubResource("Resource_h3f0d"), SubResource("Resource_x0ka0"), SubResource("Resource_4fnh2"), SubResource("Resource_m5q4r"), SubResource("Resource_58o0w")])
 map = SubResource("MapMain")

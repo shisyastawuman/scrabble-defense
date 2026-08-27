@@ -13,3 +13,4 @@ tooltip = "Optional"
 spawn_mode = 2
 goal = 1
 counts_for_win = false
+extra_gold = 50

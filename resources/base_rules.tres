@@ -4,6 +4,7 @@
 
 [resource]
 script = ExtResource("1_bcnpt")
-gold_per_crush = 2
-gold_per_wall_kill = 1
+gold_per_crush = 4
+gold_per_wall_kill = 2
+gold_per_spell_kill = 1
 metadata/_custom_type_script = "uid://b0j2ketsyn5o2"

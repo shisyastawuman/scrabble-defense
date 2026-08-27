@@ -7,6 +7,6 @@ script = ExtResource("1")
 id = "upgrade_vowels"
 display_name = "Wider vowels"
 description = "Hold 1 extra vowel."
-cost = 2
+cost = 21
 kind = 3
 vowel_size_bonus = 1

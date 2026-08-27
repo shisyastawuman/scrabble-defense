@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="ShopOffer" format=3 uid="uid://dg2u45xprw2uw"]
+
+[ext_resource type="Resource" uid="uid://gdq1763trdu1" path="res://resources/letters/special/q_sniper.tres" id="1_jhph1"]
+[ext_resource type="Script" uid="uid://dl8kmvmlkflpb" path="res://scripts/classes/shop_offer.gd" id="2_dgx4d"]
+
+[resource]
+script = ExtResource("2_dgx4d")
+id = "letter_q"
+display_name = "Sniper Q"
+description = "A Q that shoots the farthest enemy every turn."
+cost = 9
+kind = 2
+letter_blueprint = ExtResource("1_jhph1")

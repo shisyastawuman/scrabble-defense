@@ -6,7 +6,8 @@
 [ext_resource type="TileSet" uid="uid://eqa2bw2pg28i" path="res://resources/base_tile_set.tres" id="4_eaq8r"]
 [ext_resource type="Resource" uid="uid://dvuji4sr6yf36" path="res://resources/player_test.tres" id="4_q8mjp"]
 [ext_resource type="Script" uid="uid://s8c075opcu5p" path="res://scripts/classes/grid.gd" id="4_ternb"]
-[ext_resource type="Resource" uid="uid://cjy7giq6v0gyj" path="res://resources/levels/level_test.tres" id="4_yxe1x"]
+[ext_resource type="Resource" uid="uid://bspcp3py1xjc6" path="res://resources/levels/level_1.tres" id="4_yxe1x"]
+[ext_resource type="Resource" uid="uid://b6amwtt03v8hw" path="res://resources/levels/level_2.tres" id="5_wcunu"]
 [ext_resource type="Script" uid="uid://c4cyxieex8s80" path="res://scripts/player_manager.gd" id="6_ternb"]
 [ext_resource type="Script" uid="uid://drl52hihmtt3x" path="res://scripts/board.gd" id="7_board"]
 [ext_resource type="Script" uid="uid://bwwcbqx5vptth" path="res://scripts/enemy_manager.gd" id="8_enemy"]
@@ -40,7 +41,7 @@ outline_color = Color(0.2181288, 0.00011240937, 0.26496702, 1)
 [node name="GameManager" type="Node" unique_id=1720755617]
 script = ExtResource("1_hwd4i")
 rules = ExtResource("2_jrl6a")
-levels = Array[ExtResource("2_oo155")]([ExtResource("4_yxe1x")])
+levels = Array[ExtResource("2_oo155")]([ExtResource("4_yxe1x"), ExtResource("5_wcunu")])
 player = ExtResource("4_q8mjp")
 shop_catalog = ExtResource("12_catalog")
 metadata/_edit_horizontal_guides_ = [620.0, 100.0]

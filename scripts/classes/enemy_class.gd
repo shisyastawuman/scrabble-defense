@@ -18,3 +18,5 @@ enum Goal { VILLAGE, OPPOSITE_EDGE, NUMBER_OF_STEPS }
 @export var goal: Goal = Goal.VILLAGE
 @export var goal_steps: int = 1
 @export var counts_for_win: bool = true
+@export var extra_gold: int = 0
+@export var skips_walls: bool = false

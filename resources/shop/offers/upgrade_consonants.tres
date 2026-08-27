@@ -7,6 +7,6 @@ script = ExtResource("1")
 id = "upgrade_consonants"
 display_name = "Wider consonants"
 description = "Hold 1 extra consonant."
-cost = 2
+cost = 17
 kind = 3
 consonant_size_bonus = 1

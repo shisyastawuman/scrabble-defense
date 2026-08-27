@@ -1,6 +1,6 @@
-[gd_resource type="Resource" script_class="ShopOffer" load_steps=3 format=3]
+[gd_resource type="Resource" script_class="ShopOffer" format=3 uid="uid://cbtvfturwf4k3"]
 
-[ext_resource type="Script" path="res://scripts/classes/shop_offer.gd" id="1"]
+[ext_resource type="Script" uid="uid://dl8kmvmlkflpb" path="res://scripts/classes/shop_offer.gd" id="1"]
 [ext_resource type="Resource" path="res://resources/letters/special/v_grow.tres" id="2"]
 
 [resource]
@@ -8,7 +8,6 @@ script = ExtResource("1")
 id = "letter_v"
 display_name = "Vanguard V"
 description = "A V that gains +1 strength every turn."
-cost = 18
+cost = 23
 kind = 2
-unique = false
 letter_blueprint = ExtResource("2")

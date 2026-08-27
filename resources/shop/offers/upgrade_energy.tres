@@ -7,6 +7,6 @@ script = ExtResource("1")
 id = "upgrade_energy"
 display_name = "Bigger well"
 description = "Increase max energy by 2."
-cost = 2
+cost = 8
 kind = 3
 max_energy_bonus = 2

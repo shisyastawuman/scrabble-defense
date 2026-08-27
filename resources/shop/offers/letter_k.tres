@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="ShopOffer" format=3 uid="uid://brqh8vy2aab6a"]
+
+[ext_resource type="Script" uid="uid://dl8kmvmlkflpb" path="res://scripts/classes/shop_offer.gd" id="1"]
+[ext_resource type="Resource" uid="uid://b73ysy61bmp28" path="res://resources/letters/special/k_well.tres" id="1_ppd2r"]
+
+[resource]
+script = ExtResource("1")
+id = "letter_k"
+display_name = "Wellspring K"
+description = "A K that grants +1 energy every turn."
+cost = 15
+kind = 2
+letter_blueprint = ExtResource("1_ppd2r")

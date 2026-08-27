@@ -1,6 +1,6 @@
-[gd_resource type="Resource" script_class="ShopOffer" load_steps=3 format=3]
+[gd_resource type="Resource" script_class="ShopOffer" format=3 uid="uid://eg3iauwvtcl8"]
 
-[ext_resource type="Script" path="res://scripts/classes/shop_offer.gd" id="1"]
+[ext_resource type="Script" uid="uid://dl8kmvmlkflpb" path="res://scripts/classes/shop_offer.gd" id="1"]
 [ext_resource type="Resource" path="res://resources/letters/special/h_ward.tres" id="2"]
 
 [resource]
@@ -8,7 +8,6 @@ script = ExtResource("1")
 id = "letter_h"
 display_name = "Warden H"
 description = "An H that heals adjacent walls each turn."
-cost = 18
+cost = 21
 kind = 2
-unique = false
 letter_blueprint = ExtResource("2")

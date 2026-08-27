@@ -1,0 +1,48 @@
+[gd_resource type="Resource" script_class="Level" format=3 uid="uid://v43qb12qherh"]
+
+[ext_resource type="Script" uid="uid://butxpa7drc8mh" path="res://scripts/classes/map.gd" id="1_s1d1l"]
+[ext_resource type="Script" uid="uid://87mvoqvd1jsi" path="res://scripts/classes/level.gd" id="2_8dosx"]
+[ext_resource type="Script" uid="uid://cpc2qx6o7ol3x" path="res://scripts/classes/wave.gd" id="3_2nskp"]
+[ext_resource type="Script" uid="uid://dyvlea8i6pu1k" path="res://scripts/classes/spawn_group.gd" id="4_i3qvl"]
+[ext_resource type="Resource" uid="uid://cbr3qfphob5p7" path="res://resources/enemies/basic.tres" id="5_0v83y"]
+
+[sub_resource type="Resource" id="MapMain"]
+script = ExtResource("1_s1d1l")
+cols = 9
+rows = 9
+buildings = Array[Vector2i]([Vector2i(4, 4)])
+
+[sub_resource type="Resource" id="G1"]
+script = ExtResource("4_i3qvl")
+enemy = ExtResource("5_0v83y")
+count = 2
+
+[sub_resource type="Resource" id="W1"]
+script = ExtResource("3_2nskp")
+groups = Array[ExtResource("4_i3qvl")]([SubResource("G1")])
+
+[sub_resource type="Resource" id="Resource_03klq"]
+script = ExtResource("4_i3qvl")
+enemy = ExtResource("5_0v83y")
+metadata/_custom_type_script = "uid://dyvlea8i6pu1k"
+
+[sub_resource type="Resource" id="Resource_aatcd"]
+script = ExtResource("3_2nskp")
+groups = Array[ExtResource("4_i3qvl")]([SubResource("Resource_03klq")])
+metadata/_custom_type_script = "uid://cpc2qx6o7ol3x"
+
+[sub_resource type="Resource" id="Resource_lwojh"]
+script = ExtResource("4_i3qvl")
+enemy = ExtResource("5_0v83y")
+count = 3
+metadata/_custom_type_script = "uid://dyvlea8i6pu1k"
+
+[sub_resource type="Resource" id="Resource_h3f0d"]
+script = ExtResource("3_2nskp")
+groups = Array[ExtResource("4_i3qvl")]([SubResource("Resource_lwojh")])
+metadata/_custom_type_script = "uid://cpc2qx6o7ol3x"
+
+[resource]
+script = ExtResource("2_8dosx")
+waves = Array[ExtResource("3_2nskp")]([SubResource("W1"), SubResource("Resource_aatcd"), SubResource("Resource_h3f0d")])
+map = SubResource("MapMain")

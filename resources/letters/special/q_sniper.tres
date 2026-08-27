@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="LetterBlueprint" format=3 uid="uid://gdq1763trdu1"]
+
+[ext_resource type="Script" uid="uid://4hubt7nomi0o" path="res://scripts/classes/letter_blueprint.gd" id="1"]
+[ext_resource type="Script" uid="uid://cg7ga5b4p4k4v" path="res://scripts/classes/letter_effect.gd" id="2"]
+[ext_resource type="Resource" path="res://resources/letter_effects/shoot_farthest_each_turn.tres" id="3"]
+
+[resource]
+script = ExtResource("1")
+char = "Q"
+turn_effects = Array[ExtResource("2")]([ExtResource("3")])
+tooltip = "Each turn, shoot the farthest enemy for 1 damage."

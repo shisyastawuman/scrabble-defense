@@ -6,6 +6,7 @@ signal wall_destroyed(tile: LetterTile)
 const INVALID_CELL := Vector2i(-9999, -9999)
 const Words := preload("res://scripts/word_dictionary.gd")
 
+var rules: Ruleset
 var grid: Grid
 var walls: Dictionary = {} # Vector2i -> LetterTile
 var pending: Dictionary = {} # Vector2i -> Letter
@@ -19,8 +20,9 @@ var preview_char: String = ""
 var _village_scene := preload("res://scenes/building.tscn")
 
 
-func setup(p_grid: Grid) -> void:
+func setup(p_grid: Grid, _rules: Ruleset) -> void:
 	grid = p_grid
+	rules = _rules
 	for child in get_children():
 		child.queue_free()
 	walls.clear()
@@ -224,7 +226,7 @@ func validate_placement() -> PlacementResult:
 			return result
 		result.words.append(text)
 		result.word_paths.append(entry.path)
-		result.energy += text.length()
+		result.energy = maxi(0, result.energy + text.length() + rules.energy_offset)
 	result.valid = true
 	result.message = "Play %s  (+%d energy)." % [", ".join(result.words), result.energy]
 	return result

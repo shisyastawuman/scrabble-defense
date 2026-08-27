@@ -33,6 +33,8 @@ var targeting_spell: Spell = null
 var status_text: String = ""
 var turn_start_energy: int = 0
 var gold_wall: int = 0
+var gold_extra: int = 0
+var gold_spell: int = 0
 var gold_crush: int = 0
 var pending_shop_enchantment: LetterEffect = null
 var _layout_margins := Rect2(250, 100, 250, 100)
@@ -80,8 +82,8 @@ func _ready() -> void:
 	get_viewport().size_changed.connect(_layout_world)
 	_load_level_index(player_state.level_index)
 	_layout_world()
-	#_open_rules()
-	#await game_unpaused
+	_open_rules()
+	await game_unpaused
 	_on_end_turn()
 	#_open_shop()
 
@@ -99,13 +101,15 @@ func load_level(level: Level) -> void:
 		push_error("Level is missing a map.")
 		return
 	gold_wall = 0
+	gold_spell = 0
+	gold_extra = 0
 	gold_crush = 0
 	turn = 0
 	word_locked = false
 	targeting_spell = null
 	phase = Phase.PLAYER
 	grid.setup(level.map.rows, level.map.cols, level.map.buildings)
-	board.setup(grid)
+	board.setup(grid, rules)
 	player_manager.setup_from_state(player_state)
 	enemy_manager.setup(grid, board, level, enemy_layer, player_manager)
 	_connect_enemy_signals()
@@ -126,6 +130,7 @@ func current_level() -> Level:
 func _start_player_turn() -> void:
 	if phase == Phase.GAME_OVER or phase == Phase.TALLY or phase == Phase.SHOP:
 		return
+	_check_win()
 	turn += 1
 	phase = Phase.PLAYER
 	word_locked = false
@@ -146,6 +151,7 @@ func _start_player_turn() -> void:
 func _on_end_turn() -> void:
 	if phase != Phase.PLAYER:
 		return
+	_check_win()
 	targeting_spell = null
 	if not board.pending.is_empty():
 		if not board.current_result.valid:
@@ -201,7 +207,7 @@ func _commit_word() -> void:
 			_fire_place_effects(tile)
 			enemy_manager.crush_cell(cell)
 			play_spell_burst(tile.position, Color(1.0, 0.85, 0.3))
-	_check_win()
+	#_check_win()
 	hud.refresh()
 
 
@@ -283,7 +289,7 @@ func _cast_spell(spell: Spell, target: Variant) -> void:
 	play_spell_burst(Vector2.ZERO, Color(0.7, 0.85, 1.0))
 	targeting_spell = null
 	turn_start_energy = player_manager.energy
-	_check_win()
+	#_check_win()
 	hud.refresh()
 
 
@@ -499,20 +505,25 @@ func _on_enemy_killed(enemy: Enemy) -> void:
 	if enemy == null:
 		return
 	var total_gold_reward: int = 0
-	if enemy.last_hit == "crush":
-		total_gold_reward += rules.gold_per_wall_kill
-		gold_wall += rules.gold_per_wall_kill
-		total_gold_reward += rules.gold_per_crush
-		gold_crush += rules.gold_per_crush
-		player_state.gold += total_gold_reward
-		hud.popup_gold("+%s" % total_gold_reward)
-	elif enemy.last_hit == "wall":
-		total_gold_reward += rules.gold_per_wall_kill
-		gold_wall += rules.gold_per_wall_kill
-		player_state.gold += total_gold_reward
-		hud.popup_gold("+%s" % total_gold_reward)
-	if phase != Phase.PLAYER and phase != Phase.TALLY and phase != Phase.SHOP:
-		_check_win()
+	match enemy.last_hit:
+		"crush":
+			total_gold_reward += rules.gold_per_crush
+			gold_crush += rules.gold_per_crush			
+		"spell":
+			total_gold_reward += rules.gold_per_spell_kill
+			gold_spell += rules.gold_per_spell_kill
+		"wall":
+			total_gold_reward += rules.gold_per_wall_kill
+			gold_wall += rules.gold_per_wall_kill	
+		_:
+			pass
+	if enemy.data.extra_gold > 0:
+		total_gold_reward += enemy.data.extra_gold
+		gold_extra += enemy.data.extra_gold		
+	player_state.gold += total_gold_reward
+	hud.popup_gold("+%s" % total_gold_reward)
+	#if phase != Phase.PLAYER and phase != Phase.TALLY and phase != Phase.SHOP:
+		#_check_win()
 
 func _on_village_reached() -> void:
 	_lose("An enemy reached the village.")
@@ -523,13 +534,9 @@ func _on_opposite_edge_reached() -> void:
 
 
 func _on_enemies_changed() -> void:
-	if phase != Phase.PLAYER and phase != Phase.TALLY and phase != Phase.SHOP:
-		_check_win()
-	# Hook newly spawned enemies for VFX/gold.
-	#for enemy in enemy_manager.enemies:
-	#	if is_instance_valid(enemy) and not enemy.died.is_connected(_on_enemy_killed):
-	#		enemy.died.connect(_on_enemy_killed)
-	#		enemy.damaged.connect(_on_enemy_damaged)
+	#if phase != Phase.PLAYER and phase != Phase.TALLY and phase != Phase.SHOP:
+		#_check_win()
+	pass
 
 
 func _check_win() -> void:
@@ -545,11 +552,13 @@ func _check_win() -> void:
 
 
 func _win() -> void:
+	if phase == Phase.GAME_OVER or phase == Phase.TALLY or phase == Phase.SHOP:
+		return
 	phase = Phase.TALLY
 	status_text = "Level cleared."
 	_collect_letters_into_state()
 	player_state.save_to_disk()
-	hud.show_tally(gold_wall, gold_crush, player_state.gold)
+	hud.show_tally(gold_spell, gold_wall, gold_crush, gold_extra, player_state.gold)
 	hud.refresh()
 
 

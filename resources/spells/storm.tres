@@ -1,14 +1,13 @@
-[gd_resource type="Resource" script_class="Spell" load_steps=4 format=3]
+[gd_resource type="Resource" script_class="Spell" format=3 uid="uid://1w5aw2php5x1"]
 
-[ext_resource type="Script" path="res://scripts/classes/spell.gd" id="1"]
-[ext_resource type="Script" path="res://scripts/classes/spell_effect.gd" id="2"]
+[ext_resource type="Script" uid="uid://cbe4qs35qip8i" path="res://scripts/classes/spell.gd" id="1"]
+[ext_resource type="Script" uid="uid://cd46wi2sshvfo" path="res://scripts/classes/spell_effect.gd" id="2"]
 [ext_resource type="Resource" path="res://resources/spell_effects/storm_damage.tres" id="3"]
 
 [resource]
 script = ExtResource("1")
 display_name = "Storm"
 description = "Deal 1 damage to 5 random enemies."
-energy_cost = 6
+energy_cost = 11
 target_mode = 0
-escalating_cost = false
 effects = Array[ExtResource("2")]([ExtResource("3")])

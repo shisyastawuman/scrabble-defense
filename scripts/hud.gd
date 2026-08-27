@@ -170,11 +170,18 @@ func show_game_over(won: bool, message: String) -> void:
 	_add_overlay_button("Restart run", func() -> void: restart_pressed.emit())
 
 
-func show_tally(wall_gold: int, crush_bonus: int, purse: int) -> void:
+func show_tally(
+	spell_gold: int,
+	wall_gold: int,
+	crush_gold: int,
+	extra_gold: int,
+	purse: int
+	) -> void:
 	_prepare_overlay()
 	_overlay_title.text = "Raid complete"
-	_overlay_body.text = "Wall kills: +%d gold\nCrush bonus: +%d gold\nTotal earned: +%d\n\nPurse: %d gold" % [
-		wall_gold, crush_bonus, wall_gold + crush_bonus, purse
+	var gold_differential: int = spell_gold + wall_gold + crush_gold + extra_gold
+	_overlay_body.text = "Spell kills: +%d gold\nWall kills: +%d gold\nCrush kills: +%d gold\nExtra rewards: +%d gold\nTotal earned: +%d\n\nPurse: %d gold" % [
+		spell_gold, wall_gold, crush_gold, extra_gold, gold_differential, purse
 	]
 	_add_overlay_button("OK", func() -> void: tally_ok_pressed.emit())
 

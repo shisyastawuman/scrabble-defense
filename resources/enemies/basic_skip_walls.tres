@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="EnemyClass" format=3 uid="uid://ced70psdplmx"]
+
+[ext_resource type="Script" uid="uid://woat707bmm3u" path="res://scripts/classes/enemy_action.gd" id="1_47qbd"]
+[ext_resource type="Script" uid="uid://d0wsdx71ox440" path="res://scripts/classes/enemy_effect.gd" id="2_mgnbv"]
+[ext_resource type="Script" uid="uid://cj78jm3v0jl8q" path="res://scripts/classes/enemy_class.gd" id="3_npylw"]
+[ext_resource type="Texture2D" uid="uid://eprop6ejbc4r" path="res://assets/enemies/basic_enemy.png" id="4_u6nlv"]
+
+[resource]
+script = ExtResource("3_npylw")
+display_name = "Basic"
+sprite = ExtResource("4_u6nlv")
+tooltip = "Walks straight at the village. Smashes walls in its path."
+skips_walls = true

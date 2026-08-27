@@ -110,7 +110,8 @@ theme_override_constants/separation = 12
 
 [node name="EnchantmentHeader" type="Label" parent="MarginContainer/VBoxContainer/Offerings/EnchantmentsColumn" unique_id=1175294240]
 layout_mode = 2
-text = "ENCHANTMENTS"
+text = "ENCHANTMENTS
+(TBD)"
 label_settings = SubResource("LabelSettings_japx7")
 horizontal_alignment = 1
 

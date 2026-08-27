@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="ShopOffer" format=3 uid="uid://nkk1dl8litav"]
+
+[ext_resource type="Script" uid="uid://dl8kmvmlkflpb" path="res://scripts/classes/shop_offer.gd" id="1"]
+[ext_resource type="Resource" uid="uid://cv1xvorqcx2gc" path="res://resources/letters/special/z_ward.tres" id="1_hsaev"]
+
+[resource]
+script = ExtResource("1")
+id = "letter_z"
+display_name = "Warden Z"
+description = "An Z that heals adjacent walls each turn."
+cost = 13
+kind = 2
+letter_blueprint = ExtResource("1_hsaev")

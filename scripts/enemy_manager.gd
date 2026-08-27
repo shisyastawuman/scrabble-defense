@@ -162,13 +162,11 @@ func _spawn(blueprint: EnemyClass, origin: Dictionary) -> void:
 func _move_enemy(enemy: Enemy) -> void:
 	var steps := enemy.speed
 	for _step in steps:
-		if enemy.data.goal == EnemyClass.Goal.NUMBER_OF_STEPS and enemy._remaining_steps <= 0:
-			_ended = true
+		if enemy.data and enemy.data.goal == EnemyClass.Goal.NUMBER_OF_STEPS and enemy._remaining_steps <= 0:
 			return
 		if _ended or not is_instance_valid(enemy) or enemy.health <= 0:
 			return
 		if grid.is_enemy_land(enemy.cell) and enemy.cell != enemy.origin_cell:
-			_ended = true
 			_leave_map(enemy)
 			return
 		if grid.is_village(enemy.cell):
@@ -186,25 +184,37 @@ func _move_enemy(enemy: Enemy) -> void:
 			return
 		if board.has_wall(next):
 			var wall := board.get_wall(next)
-			var jumped := false
 			if enemy.data:
 				for effect in enemy.data.wall_effects:
-					if effect and effect.on_wall_encounter(enemy, wall):
-						jumped = true
-			if jumped:
-				enemy.cell = next
-				await enemy.animate_to(board.cell_to_local(next))
+					if effect:
+						effect.on_wall_encounter(enemy, wall)
+			if enemy.data and enemy.data.skips_walls:
+				while board.has_wall(next) and grid.is_in_bounds(next + enemy.forward):
+					next += enemy.forward
+				if board.has_wall(next):
+					if enemy.data.goal == EnemyClass.Goal.OPPOSITE_EDGE:
+						_leave_map(enemy)
+					return
+			else:
+				await _smash(enemy, wall)
+				if board.has_wall(next):
+					return
+				if not is_instance_valid(enemy) or enemy.health <= 0:
+					return
 				continue
-			await _smash(enemy, wall)
-			if board.has_wall(next):
-				return
-			if not is_instance_valid(enemy) or enemy.health <= 0:
-				return
-			continue
+		if grid.is_village(next):
+			enemy.cell = next
+			await enemy.animate_to(board.cell_to_local(next))
+			_ended = true
+			enemy_reached_village.emit()
+			return
 		enemy.cell = next
-		if enemy.data.goal == EnemyClass.Goal.NUMBER_OF_STEPS:
+		if enemy.data and enemy.data.goal == EnemyClass.Goal.NUMBER_OF_STEPS:
 			enemy._remaining_steps -= 1
 		await enemy.animate_to(board.cell_to_local(next))
+		if grid.is_enemy_land(enemy.cell) and enemy.cell != enemy.origin_cell:
+			_leave_map(enemy)
+			return
 
 
 func _smash(enemy: Enemy, wall: LetterTile) -> void:

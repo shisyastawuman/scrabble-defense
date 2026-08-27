@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="EnemyClass" format=3 uid="uid://kf3jr6ysdncr"]
+
+[ext_resource type="Script" uid="uid://woat707bmm3u" path="res://scripts/classes/enemy_action.gd" id="1_xytic"]
+[ext_resource type="Script" uid="uid://d0wsdx71ox440" path="res://scripts/classes/enemy_effect.gd" id="2_aatcd"]
+[ext_resource type="Script" uid="uid://cj78jm3v0jl8q" path="res://scripts/classes/enemy_class.gd" id="3_h3f0d"]
+[ext_resource type="Texture2D" uid="uid://57nhl0fkhwwh" path="res://assets/enemies/moneybags_enemy.png" id="4_aatcd"]
+
+[resource]
+script = ExtResource("3_h3f0d")
+health = 3
+speed = 2
+damage = 0
+sprite = ExtResource("4_aatcd")
+tooltip = "Skips walls and escapes the map. Kill it for extra gold!"
+spawn_mode = 2
+goal = 1
+counts_for_win = false
+extra_gold = 5
+skips_walls = true
+metadata/_custom_type_script = "uid://cj78jm3v0jl8q"

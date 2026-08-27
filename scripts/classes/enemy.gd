@@ -1,6 +1,7 @@
 class_name Enemy
 extends Node2D
 
+
 signal died(enemy: Enemy)
 signal damaged(enemy: Enemy)
 
