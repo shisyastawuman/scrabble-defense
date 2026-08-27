@@ -55,7 +55,7 @@ func _ready() -> void:
 	#if player_state == null or player_state.owned_letters.is_empty():
 		#player_state = PlayerState.from_player(player)
 	hud.setup(self)
-	hud.commit_word_pressed.connect(_commit_word)
+	hud.commit_word_pressed.connect(_try_to_commit_word)
 	hud.rules_pressed.connect(_open_rules)
 	hud.close_rules_pressed.connect(_close_rules)
 	hud.end_turn_pressed.connect(_on_end_turn)
@@ -148,16 +148,20 @@ func _start_player_turn() -> void:
 	hud.refresh()
 
 
-func _on_end_turn() -> void:
-	if phase != Phase.PLAYER:
-		return
-	_check_win()
-	targeting_spell = null
+func _try_to_commit_word() -> void:
 	if not board.pending.is_empty():
 		if not board.current_result.valid:
 			hud.flash(board.current_result.message)
 			return
 		_commit_word()
+
+
+func _on_end_turn() -> void:
+	if phase != Phase.PLAYER:
+		return
+	_check_win()
+	targeting_spell = null
+	_try_to_commit_word()
 	player_manager.refill_hand()
 	await _resolve_after_player()
 	if phase == Phase.GAME_OVER or phase == Phase.TALLY:

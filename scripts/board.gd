@@ -36,7 +36,7 @@ func setup(p_grid: Grid, _rules: Ruleset) -> void:
 		add_child(village)
 		villages[cell] = village
 	current_result = PlacementResult.new()
-	current_result.valid = true
+	current_result.valid = false
 	current_result.message = "Place letters on one row or column to form a word."
 	queue_redraw()
 

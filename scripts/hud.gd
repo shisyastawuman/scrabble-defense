@@ -84,7 +84,12 @@ func refresh() -> void:
 			_status.text = game.status_text
 	else:
 		_status.text = game.status_text
-	_commit_btn.disabled = game.phase != GameManager.Phase.PLAYER or game.word_locked
+	_commit_btn.disabled = (
+		game.phase != GameManager.Phase.PLAYER
+		or game.word_locked
+		or game.board.pending.is_empty()
+		or not game.board.current_result.valid
+		)
 	_end_turn_btn.disabled = game.phase != GameManager.Phase.PLAYER
 	_rebuild_hand_if_needed()
 	_refresh_hand(_vowel_buttons, pm.vowel_hand)
